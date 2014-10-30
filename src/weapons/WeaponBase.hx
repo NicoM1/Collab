@@ -26,8 +26,8 @@ class WeaponBase extends Sprite {
 
     // TODO : Add a default piece for each parts.
     public function new(options: SpriteOptions,
-        body:Body = Null, cannon:Cannon = Null,
-        techCore:TechCore = Null, ammoStorage:AmmoStorage = Null) {
+        body:Body = null, cannon:Cannon = null,
+        techCore:TechCore = null, ammoStorage:AmmoStorage = null) {
 
         super(options);
         this.body = body;
