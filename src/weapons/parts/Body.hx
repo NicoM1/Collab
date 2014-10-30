@@ -11,6 +11,6 @@ class Body extends Component {
 	public var energyUsage: Float;
 	
 	public function new(?_options:ComponentOptions) {
-		super(_options == null? "part-body" : _options);
+		super(_options == null? {name:"part-body"} : _options);
 	}
 }

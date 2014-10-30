@@ -7,7 +7,8 @@ import BinarySave.DataItem;
 class Main extends luxe.Game 
 {
 	override function ready() {
-		var data:DataFile = BinarySave.getDataFile();
+		//{ Binary
+		/*var data:DataFile = BinarySave.getDataFile();
 		
 		data.sig = 0xf;
 		
@@ -34,11 +35,13 @@ class Main extends luxe.Game
 		
 		data.items.push(item);
 		data.items.push(item1);
-		data.items.push(item2);*/
+		data.items.push(item2);
 		
 		BinarySave.saveData("assets/test.data", data);
 		
-		BinarySave.loadData("assets/test.data", onLoad);
+		BinarySave.loadData("assets/test.data", onLoad);*/
+		
+		//}
 	}
 	
 	function onLoad(d:DataFile) {
