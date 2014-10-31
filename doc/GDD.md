@@ -41,3 +41,30 @@
 1.  Some "unique" weapons are actually a set of parts which only set with themselves.
 2.  Some "unique" weapons are actually containing a legendary part which brings the legendary status.
 3.  Hardcoded legendary weapons
+
+### Weapon JSON storage?
+```json
+{
+  "name":"basic",
+  "body" : {
+    /*
+     * WIP, could store for instance only an id and the part could be generated from that id.
+     */
+  },
+  "core" : {
+    /*
+     * WIP
+     */
+  },
+  "cannon" : {
+    /*
+     * WIP
+     */
+  },
+  "ammo" : {
+    /*
+     * WIP
+     */
+  }
+}
+```
