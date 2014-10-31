@@ -68,3 +68,17 @@
   }
 }
 ```
+
+###Weapon Binary Storage (this is just how I would lay it out, not a standard)
+
+```
+0x1 #FileType Version
+
+0x3 #ItemCount
+
+0xff1a #here could just be a seed, or individual properties or whatever
+
+0xaa13 #here could just be a seed, or individual properties or whatever
+
+0x64bc #here could just be a seed, or individual properties or whatever
+```
