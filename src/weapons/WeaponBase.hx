@@ -12,7 +12,7 @@ class WeaponBase extends Sprite {
 	var techCore: TechCore;
 	var ammoStorage: AmmoStorage;
 	
-	public function new(options: SpriteOptions) {
-		super(options);
+	public function new(_options_: SpriteOptions) {
+		super(_options_);
 	}
 }

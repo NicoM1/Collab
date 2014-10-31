@@ -10,7 +10,7 @@ class Cannon extends Component {
 	///Firing accuracy, lower == better.
 	public var precision: Float;
 	
-	public function new(?_options:ComponentOptions) {
-		super(_options == null? {name:"part-cannon"} : _options);
+	public function new(?_options_: ComponentOptions) {
+		super(_options_ == null? {name:"part-cannon"} : _options_);
 	}
 }

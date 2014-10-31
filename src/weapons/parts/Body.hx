@@ -10,7 +10,7 @@ class Body extends Component {
 	///Energy depletion per shot, lower == better.
 	public var energyUsage: Float;
 	
-	public function new(?_options:ComponentOptions) {
-		super(_options == null? {name:"part-body"} : _options);
+	public function new(?_options_: ComponentOptions) {
+		super(_options_ == null? {name:"part-body"} : _options_);
 	}
 }

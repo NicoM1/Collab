@@ -13,7 +13,7 @@ class AmmoStorage extends Component {
 	///Maximum shots before reload, higher == better.
 	public var clipSize: Int;
 	
-	public function new(?_options:ComponentOptions) {
-		super(_options == null? {name:"part-ammostorage"} : _options);
+	public function new(?_options_: ComponentOptions) {
+		super(_options_ == null? {name:"part-ammostorage"} : _options_);
 	}
 }
