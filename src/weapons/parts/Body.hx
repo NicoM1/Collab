@@ -2,6 +2,7 @@ package weapons.parts;
 
 import luxe.Component;
 import luxe.options.ComponentOptions;
+import weapons.parts.WeaponPart;
 
 class Body extends WeaponPart {
 	

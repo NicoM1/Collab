@@ -6,9 +6,9 @@ import luxe.Visual;
 import luxe.options.ComponentOptions;
 
 typedef WeaponPartOptions = {
-    @:optional var name: String;
-	var visual: Visual;
-	var hotPoint: Vector;
+    ?name: String,
+	?visual: Visual,
+	?hotPoint: Vector
 }
 
 class WeaponPart extends Component {
