@@ -3,6 +3,7 @@ package weapons.parts;
 import luxe.Component;
 import luxe.options.ComponentOptions;
 import weapons.ammo.AmmoType;
+import weapons.parts.WeaponPart;
 
 class AmmoStorage extends Component {
 	
@@ -13,7 +14,7 @@ class AmmoStorage extends Component {
 	///Maximum shots before reload, higher == better.
 	public var clipSize: Int;
 	
-	public function new(?_options_: ComponentOptions) {
-		super(_options_ == null? {name:"part-ammostorage"} : _options_);
+	public function new(options_: WeaponPartOptions) {
+		super(options_ == null? {name:"part-ammostorage"} : options_);
 	}
 }

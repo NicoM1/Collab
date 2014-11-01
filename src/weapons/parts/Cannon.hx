@@ -10,7 +10,7 @@ class Cannon extends WeaponPart {
 	///Firing accuracy, lower == better.
 	public var precision: Float;
 	
-	public function new(_options_: WeaponPartOptions) {
-		super(_options_);
+	public function new(options_: WeaponPartOptions) {
+		super(options_ == null? {name:"part-cannon"} : options_);
 	}
 }

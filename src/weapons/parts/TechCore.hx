@@ -11,7 +11,7 @@ class TechCore extends WeaponPart {
 	///Adds to body.energyUsage, lower == better.
 	public var energyUsage: Float;
 	
-	public function new(_options_: WeaponPartOptions) {
-		super(_options_);
+	public function new(options_: WeaponPartOptions) {
+		super(options_ == null? {name:"part-techcore"} : options_);
 	}
 }
