@@ -1,6 +1,7 @@
 package;
 
 typedef TypedefConvention = {
+	> ExtendingType, //Lets us allow normal sprite options as well `> SpriteOptions`
 	variable: Type,
 	?optionalVar: Type,
 	endingVar: Type //No Comma
