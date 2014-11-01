@@ -6,7 +6,7 @@ import luxe.Visual;
 import luxe.options.ComponentOptions;
 
 typedef WeaponPartOptions = {
-    ?name: String,
+    > ComponentOptions,
 	?visual: Visual,
 	?hotPoint: Vector
 }

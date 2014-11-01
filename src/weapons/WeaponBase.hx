@@ -7,7 +7,7 @@ import weapons.parts.*;
 
 
 typedef WeaponOptions = {
-    ?name: String,
+	> SpriteOptions,
 	body: Body, 
 	cannon: Cannon,
     techCore:TechCore, 
@@ -32,7 +32,7 @@ class WeaponBase extends Sprite {
 	
 	 // TODO : Add a default piece for each parts.
 	public function new(options_: WeaponOptions) {
-		super({name: options_.name});
+		super(options_);
         this.body = options_.body;
         this.cannon = options_.cannon;
         this.techCore = options_.techCore;
