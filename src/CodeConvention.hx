@@ -1,5 +1,11 @@
 package;
 
+typedef TypedefConvention = {
+	variable: Type,
+	?optionalVar: Type,
+	endingVar: Type //No Comma
+}
+
 class CodeConvention {
 	
 	public var publicVar: Type; //space only after colon
