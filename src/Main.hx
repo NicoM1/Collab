@@ -9,8 +9,7 @@ import phoenix.geometry.CircleGeometry;
 import phoenix.geometry.Geometry;
 import phoenix.geometry.Vertex;
 
-class Main extends luxe.Game 
-{	
+class Main extends luxe.Game {	
 	override function ready() {
 
 	}
