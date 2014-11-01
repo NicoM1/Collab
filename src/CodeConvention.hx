@@ -6,6 +6,13 @@ class CodeConvention {
 	public var otherSimilarVar: Type;
 	
 	var _privateVar: Type;
+
+//  Eiyeron's suggestion
+	public var publicVar       : Type; //space only after colon
+	public var otherSimilarVar : Type;
+	
+	private var _privateVar : Type;	
+
 	
 	public function new(_argument_: Type) { //double underscores ensure no use of This.var = var
 		
