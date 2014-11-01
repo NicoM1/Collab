@@ -20,7 +20,7 @@ class CodeConvention {
 	private var _privateVar : Type;	
 
 	
-	public function new(_argument_: Type) { //double underscores ensure no use of This.var = var
+	public function new(argument_: Type) { //trailing underscore ensures no use of This.var = var
 		
 		if (6 % 3 == 0) { //even single statements should have braces (open to debate)
 			trace("even");
