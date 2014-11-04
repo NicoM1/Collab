@@ -36,9 +36,7 @@ class Player extends Character{
 
 		// TODO : Set actual distance calculation
 		var moveDistance: Float = dt * /*(distance between moveTarget and position > Maximum ? Maximum : moveDistance); */42; 
-		// TODO : Set actual angle calculation
-		var moveAngle: Float = /* Angle between position and target */ Math.PI;
-		var moveDirection: Vector = new Vector(moveDistance * Math.cos(moveAngle), moveDistance * Math.sin(moveAngle));
+		var moveDirection: Vector = Vector.RotationTo(pos, _moveTarget).multiplyScalar(moveDistance);
 		pos.add(moveDirection);
 	}
 
