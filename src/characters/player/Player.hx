@@ -20,6 +20,7 @@ class Player extends Character{
 		_moveTarget = new Vector(0, 0); 
 		super(options_);	
 		pos.set_xy(Luxe.screen.mid.x, Luxe.screen.mid.y);
+		scale = scale.multiplyScalar(2);
 	}
 	
 	//TODO!: What is going wrong here??
@@ -30,19 +31,17 @@ class Player extends Character{
 	}
 	
 	override public function update(dt: Float) {
-		super.update(dt);
-		trace(pos);
 		// TODO~: Use internal variables to avoid variable redeclaration at each update?
 		// We need to use benchmarks to see if storing temp variables as class members are faster and less lag-making.*
-		var moveDistance: Float = (Math.sqrt( (pos.x - _moveTarget.x) * (pos.x - _moveTarget.x) + (pos.y - _moveTarget.y) * (pos.y - _moveTarget.y) ));
-		moveDistance = moveDistance > 600 ? 600 : moveDistance;
-		var moveAngle = Vector.RotationTo(pos, _moveTarget);
-		var moveDirection: Vector = new Vector(Math.cos(moveAngle), Math.sin(moveAngle));
-		moveDirection = moveDirection.multiplyScalar(moveDistance * dt);
+		var moveDistance: Float = Math.sqrt( (pos.x - _moveTarget.x) * (pos.x - _moveTarget.x) + (pos.y - _moveTarget.y) * (pos.y - _moveTarget.y) );
+		moveDistance = (moveDistance > 600 ? 600 : moveDistance);
+		var moveAngle = pos.rotationTo(_moveTarget);
+		var moveDirection: Vector = new Vector(Math.cos(moveAngle), Math.sin(moveAngle)).multiplyScalar(moveDistance * dt);
 		pos.add(moveDirection);
+		super.update(dt);
 	}
 
 	public function setMoveTarget(v: Vector) {
-		_moveTarget = v;
+		_moveTarget.copy_from(v);
 	}
 }
