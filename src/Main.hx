@@ -19,7 +19,8 @@ class Main extends luxe.Game {
 	
 	var _bufferWidth: Int = 0;
 	var _bufferHeight: Int = 0;
-	
+	var _player: Player;
+
 	override function ready() {
 		_setUpCamera();
 		_testWeapon();
@@ -33,7 +34,7 @@ class Main extends luxe.Game {
 	}
 
 	override function update(dt:Float) {
-		
+		_player.setMoveTarget(Luxe.mouse);
 	}
 	
 	function _setUpCamera() {	
@@ -55,7 +56,7 @@ class Main extends luxe.Game {
 	}
 	
 	function _testPlayer() {
-		var player: Player = new Player();
+		_player: Player = new Player();
 	}
 
 }
