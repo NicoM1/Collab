@@ -34,7 +34,6 @@ class Main extends luxe.Game {
 	}
 
 	override function update(dt:Float) {
-		_player.setMoveTarget(Luxe.mouse);
 	}
 	
 	function _setUpCamera() {	
@@ -56,7 +55,11 @@ class Main extends luxe.Game {
 	}
 	
 	function _testPlayer() {
-		_player: Player = new Player();
+		_player = new Player();
 	}
 
+	public override function onmousemove(event: MouseEvent) {
+		// TODO!: The player actually derps a lot when the mouse is moving...
+		_player.setMoveTarget(event.pos);
+	}
 }

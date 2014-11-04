@@ -18,29 +18,31 @@ class Player extends Character{
 		options_.pos = new Vector(0, 0);
 		
 		_moveTarget = new Vector(0, 0); 
-
 		super(options_);	
+		pos.set_xy(Luxe.screen.mid.x, Luxe.screen.mid.y);
 	}
 	
 	//TODO!: What is going wrong here??
+	//Eiyeron : I had the same problem with [SQUARE] : this function is called before new is finished.
+	//          But here, I don't find the origin of this problem. So I moved the position declaration.
 	function _onLoad(t: Texture) {
 		t.filter = FilterType.nearest;
-		pos.x = Luxe.screen.mid.x;
-		pos.y = Luxe.screen.mid.y;
 	}
 	
 	override public function update(dt: Float) {
 		super.update(dt);
+		trace(pos);
 		// TODO~: Use internal variables to avoid variable redeclaration at each update?
 		// We need to use benchmarks to see if storing temp variables as class members are faster and less lag-making.*
-
-		// TODO : Set actual distance calculation
-		var moveDistance: Float = dt * /*(distance between moveTarget and position > Maximum ? Maximum : moveDistance); */42; 
-		var moveDirection: Vector = Vector.RotationTo(pos, _moveTarget).multiplyScalar(moveDistance);
+		var moveDistance: Float = (Math.sqrt( (pos.x - _moveTarget.x) * (pos.x - _moveTarget.x) + (pos.y - _moveTarget.y) * (pos.y - _moveTarget.y) ));
+		moveDistance = moveDistance > 600 ? 600 : moveDistance;
+		var moveAngle = Vector.RotationTo(pos, _moveTarget);
+		var moveDirection: Vector = new Vector(Math.cos(moveAngle), Math.sin(moveAngle));
+		moveDirection = moveDirection.multiplyScalar(moveDistance * dt);
 		pos.add(moveDirection);
 	}
 
 	public function setMoveTarget(v: Vector) {
-		_moveTarget.copy_from(v);
+		_moveTarget = v;
 	}
 }
