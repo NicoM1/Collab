@@ -1,9 +1,9 @@
 package characters.player;
 import characters.Character.CharacterOptions;
 import luxe.options.SpriteOptions;
+import luxe.utils.Maths;
 import phoenix.Texture;
 import phoenix.Vector;
-
 /**
  * ...
  * @author 
@@ -11,6 +11,8 @@ import phoenix.Vector;
 class Player extends Character{
 
 	var _moveTarget: Vector;
+	var _moveDirection: Vector;
+	var _moveAngle: Float;
 
 	public function new() {
 		var options_: CharacterOptions = {};
@@ -18,8 +20,12 @@ class Player extends Character{
 		options_.pos = new Vector(0, 0);
 		
 		_moveTarget = new Vector(0, 0); 
+		_moveDirection = new Vector(0, 0); 
+		_moveAngle = 0; 
+
 		super(options_);	
 		pos.set_xy(Luxe.screen.mid.x, Luxe.screen.mid.y);
+		this.setMoveTarget(Luxe.screen.mid);
 		scale = scale.multiplyScalar(2);
 	}
 	
@@ -33,15 +39,16 @@ class Player extends Character{
 	override public function update(dt: Float) {
 		// TODO~: Use internal variables to avoid variable redeclaration at each update?
 		// We need to use benchmarks to see if storing temp variables as class members are faster and less lag-making.*
-		var moveDistance: Float = Math.sqrt( (pos.x - _moveTarget.x) * (pos.x - _moveTarget.x) + (pos.y - _moveTarget.y) * (pos.y - _moveTarget.y) );
-		moveDistance = (moveDistance > 600 ? 600 : moveDistance);
-		var moveAngle = pos.rotationTo(_moveTarget);
-		var moveDirection: Vector = new Vector(Math.cos(moveAngle), Math.sin(moveAngle)).multiplyScalar(moveDistance * dt);
-		pos.add(moveDirection);
 		super.update(dt);
+		var moveDistance: Float = Math.sqrt( (pos.x - _moveTarget.x) * (pos.x - _moveTarget.x) + (pos.y - _moveTarget.y) * (pos.y - _moveTarget.y) );
+		moveDistance = (moveDistance > 60 ? 60 : moveDistance);
+		pos.add(_moveDirection.multiplyScalar(moveDistance * dt));
 	}
 
 	public function setMoveTarget(v: Vector) {
 		_moveTarget.copy_from(v);
+		// TODO>: Change this function once rotationTo gets corrected. It has a -90 because the rotationTo routine is wrong.
+		_moveAngle = Maths.radians(pos.rotationTo(_moveTarget) - 90);
+		_moveDirection = new Vector(Math.cos(_moveAngle), Math.sin(_moveAngle));
 	}
 }
