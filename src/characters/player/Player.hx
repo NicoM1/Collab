@@ -1,14 +1,16 @@
 package characters.player;
+
 import characters.Character.CharacterOptions;
+import luxe.Text;
+
 import luxe.Color;
 import luxe.options.SpriteOptions;
 import luxe.utils.Maths;
+
 import phoenix.Texture;
 import phoenix.Vector;
-/**
- * ...
- * @author 
- */
+
+
 class Player extends Character{
 
 	var _moveTarget: Vector;
@@ -17,6 +19,8 @@ class Player extends Character{
 	
 	var _speed: Float = 200;
 	var _rotateSpeed: Float = 10;
+	
+	var _logText: Text;
 
 	public function new() {
 		var options_: CharacterOptions = {};
@@ -25,6 +29,13 @@ class Player extends Character{
 		
 		_moveTarget = new Vector(0, 0); 
 		_moveDirection = new Vector(0, 0); 
+		
+		_logText = new Text({
+			pos: new Vector(5, 5),
+			depth: 3,
+			text: '',
+			color: new Color(0.5,0.5,0.5)
+		});
 
 		super(options_);	
 		pos.set_xy(Luxe.screen.mid.x, Luxe.screen.mid.y);
@@ -51,7 +62,7 @@ class Player extends Character{
 		_moveDirection.normalize();
 		_moveDirection.multiplyScalar(dt * _speed);
 		
-		var d = _getDist(pos, _moveTarget) ;
+		var d = Vector.Subtract(pos, _moveTarget).length;
 		_moveDirection.x = (d > _moveDirection.length)? _moveDirection.x : _moveTarget.x - pos.x;
 		_moveDirection.y = (d > _moveDirection.length)? _moveDirection.y : _moveTarget.y - pos.y;
 		
@@ -62,33 +73,24 @@ class Player extends Character{
 	function _updateAngle(dt: Float) {
 		_angleTarget = -Math.atan2(_moveTarget.x - pos.x, _moveTarget.y - pos.y);
 		var target = Maths.degrees(_angleTarget) - 180;
-		target = _clampAngle(target);
 		
-		var r = (target - _clampAngle(rotation_z));
+		target = Maths.wrap_angle(target, 0, 360);
+		
+		var wr = Maths.wrap_angle(rotation_z, 0, 360);
+		var r = (target - wr);
 		
 		if (r > 180) {
-			r = (target - _clampAngle(rotation_z) - 360);
+			r = (target - wr - 360);
 		}
 		else if (r < -180) {
-			r = (target - _clampAngle(rotation_z) + 360);
+			r = (target - wr + 360);
 		}
 		
 		rotation_z += r * dt * _rotateSpeed;
 		
-		rotation_z = _clampAngle(rotation_z);
+		rotation_z = Maths.wrap_angle(rotation_z, 0, 360);
 		
 		_log(Std.int(rotation_z));
-	}
-	
-	//TODO: this is gross, but it works, make it not gross
-	function _clampAngle(a: Float): Float {
-		while (a > 360) {
-			 a -= 360; 
-		}
-		while (a < 0) {
-			a += 360;
-		}
-		return a;
 	}
 	
 	function _getDist(a: Vector, b: Vector) {
@@ -102,12 +104,7 @@ class Player extends Character{
 	}
 	
 	function _log(t: Dynamic) {
-		Luxe.draw.text({
-            immediate:true,
-            color : new Color(),
-            pos : new Vector(Luxe.screen.w - 120, Luxe.screen.y - 5),
-            text : Std.string(t)
-        });
+		_logText.text = Std.string(t);
 	}
 
 	public function setMoveTarget(v: Vector) {
