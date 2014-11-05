@@ -38,7 +38,7 @@ class Player extends Character{
 		});
 
 		super(options_);	
-		pos.set_xy(Luxe.screen.mid.x, Luxe.screen.mid.y);
+		_worldPos.set_xy(Luxe.screen.mid.x, Luxe.screen.mid.y);
 		setMoveTarget(Luxe.mouse);
 	}
 	
@@ -47,31 +47,31 @@ class Player extends Character{
 	}
 	
 	override public function update(dt: Float) {
-		super.update(dt);
 		
 		_updateMovement(dt);
 		if(_moveDirection.length > 0) {
 			_updateAngle(dt);
 		}
+		super.update(dt);
 	}
 	
 	function _updateMovement(dt: Float) {		
-		_moveDirection.x = _moveTarget.x - pos.x;
-		_moveDirection.y = _moveTarget.y - pos.y;
+		_moveDirection.x = _moveTarget.x - _worldPos.x;
+		_moveDirection.y = _moveTarget.y - _worldPos.y;
 		
 		_moveDirection.normalize();
 		_moveDirection.multiplyScalar(dt * _speed);
 		
-		var d = Vector.Subtract(pos, _moveTarget).length;
-		_moveDirection.x = (d > _moveDirection.length)? _moveDirection.x : _moveTarget.x - pos.x;
-		_moveDirection.y = (d > _moveDirection.length)? _moveDirection.y : _moveTarget.y - pos.y;
+		var d = Vector.Subtract(_worldPos, _moveTarget).length;
+		_moveDirection.x = (d > _moveDirection.length)? _moveDirection.x : _moveTarget.x - _worldPos.x;
+		_moveDirection.y = (d > _moveDirection.length)? _moveDirection.y : _moveTarget.y - _worldPos.y;
 		
-		pos.add(_moveDirection);
+		_worldPos.add(_moveDirection);
 	}
 	
 	//TODO!: currently very strange to prevent doing a full spin around when crossing zero, must be an easier way
 	function _updateAngle(dt: Float) {
-		_angleTarget = -Math.atan2(_moveTarget.x - pos.x, _moveTarget.y - pos.y);
+		_angleTarget = -Math.atan2(_moveTarget.x - _worldPos.x, _moveTarget.y - _worldPos.y);
 		var target = Maths.degrees(_angleTarget) - 180;
 		
 		target = Maths.wrap_angle(target, 0, 360);

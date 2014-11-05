@@ -3,12 +3,14 @@ package;
 import characters.player.Player;
 import luxe.Color;
 import luxe.Input;
+import luxe.Sprite;
 import luxe.options.DrawOptions.DrawCircleOptions;
 import luxe.Vector;
 import phoenix.Batcher.PrimitiveType;
 import phoenix.geometry.CircleGeometry;
 import phoenix.geometry.Geometry;
 import phoenix.geometry.Vertex;
+import utils.RenderMaths;
 import weapons.parts.AmmoStorage;
 import weapons.parts.Body;
 import weapons.parts.Cannon;
@@ -26,6 +28,7 @@ class Main extends luxe.Game {
 		_setUpCamera();
 		_testWeapon();
 		_testPlayer();
+		_testGround();
 	}
 	
 	override function onkeyup(e:KeyEvent) {
@@ -57,6 +60,14 @@ class Main extends luxe.Game {
 	
 	function _testPlayer() {
 		_player = new Player();
+	}
+
+	function _testGround() {
+		new Sprite({
+			color: new Color().rgb(0x800000),
+			pos: RenderMaths.perspectiveProjection(Luxe.screen.mid),
+			size: RenderMaths.perspectiveProjection(Luxe.screen.size)
+			});
 	}
 
 	public override function onmousemove(event: MouseEvent) {
