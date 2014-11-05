@@ -22,6 +22,7 @@ class Main extends luxe.Game {
 	var _player: Player;
 
 	override function ready() {
+		
 		_setUpCamera();
 		_testWeapon();
 		_testPlayer();
@@ -59,7 +60,6 @@ class Main extends luxe.Game {
 	}
 
 	public override function onmousemove(event: MouseEvent) {
-		// TODO!: The player actually derps a lot when the mouse is moving...
 		_player.setMoveTarget(event.pos);
 	}
 }
