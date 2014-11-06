@@ -40,6 +40,8 @@ class Player extends Character{
 			y: _worldPos.y + 10,
 			depth: 5
 		});
+		
+		_zAcceleration = -300;
 	}
 	
 	function _onLoad(t: Texture) {
@@ -79,15 +81,8 @@ class Player extends Character{
 			}
 		}
 		
-		if (Luxe.input.keypressed(Key.space)) {
+		if (_onGround() && Luxe.input.keypressed(Key.space)) {
 			_zVelocity = 150;
-		}
-		else {
-			_zVelocity -=  300 * dt;
-			if (_zHeight < 0) {
-				_zVelocity = 0;
-				_zHeight = 0;
-			}
 		}
 	}
 }
