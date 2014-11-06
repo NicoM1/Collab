@@ -10,24 +10,33 @@ typedef CharacterOptions = {
 	> SpriteOptions,
 }
 
-/**
- * ...
- * @author 
- */
 class Character extends Sprite {
 
 	/**
 	 * This vector stores the actual character position. pos is only used for graphical render.
 	**/
-	private var _worldPos: Vector;
+	var _worldPos: Vector;
+	var _zHeight: Float = 0;
+	var _velocity: Vector;
+	var _zVelocity: Float = 0;
+	
 	public function new(options_: CharacterOptions) {
+		_worldPos = new Vector(0, 0);
+		_velocity = new Vector(0, 0);
 		super(options_);
-		_worldPos = new Vector(0,0);
 	}
 	
 	override public function update(dt:Float) {
 		super.update(dt);
-		pos = RenderMaths.perspectiveProjection(_worldPos);
-		// TODO : Perspective projection
+		_worldPos.x += _velocity.x * dt;
+		_worldPos.y += _velocity.y * dt;
+		_zHeight += _zVelocity * dt;
+		pos.x = _worldPos.x;
+		pos.y = _worldPos.y;
+		pos.y -= _zHeight;
+	}
+	
+	function _onGround(): Bool {
+		return _zHeight == 0;
 	}
 }

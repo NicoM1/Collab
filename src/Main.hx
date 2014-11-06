@@ -1,6 +1,7 @@
 package;
 
 import characters.player.Player;
+import luxe.Camera.SizeMode;
 import luxe.Color;
 import luxe.Input;
 import luxe.Sprite;
@@ -10,6 +11,7 @@ import phoenix.Batcher.PrimitiveType;
 import phoenix.geometry.CircleGeometry;
 import phoenix.geometry.Geometry;
 import phoenix.geometry.Vertex;
+import utils.L;
 import utils.RenderMaths;
 import weapons.parts.AmmoStorage;
 import weapons.parts.Body;
@@ -19,14 +21,21 @@ import weapons.WeaponBase;
 
 class Main extends luxe.Game {	
 	
-	var _bufferWidth: Int = 0;
-	var _bufferHeight: Int = 0;
+	var _bufferWidth: Float = 0;
+	var _bufferHeight: Float = 0;
 	var _player: Player;
+	
+	var _ground: Sprite;
 
 	override function ready() {
 		
-		_setUpCamera();
-		_testWeapon();
+		new L();
+		
+		_bufferWidth = Luxe.screen.w / 2;
+		_bufferHeight = Luxe.screen.h / 2;
+		
+		//_setUpCamera();
+		//_testWeapon();
 		_testPlayer();
 		_testGround();
 	}
@@ -41,12 +50,17 @@ class Main extends luxe.Game {
 	}
 	
 	function _setUpCamera() {	
+		Luxe.camera.size = new Vector();
 		if (_bufferWidth > 0) {
 			Luxe.camera.size.x = _bufferWidth;
 		}
 		if (_bufferHeight > 0) {
 			Luxe.camera.size.y = _bufferHeight;
 		}
+		
+		Config.scale = Luxe.screen.w / _bufferWidth;
+		Luxe.camera.size_mode = SizeMode.contain;
+		Luxe.camera.zoom = Config.scale;
 	}
 	
 	function _testWeapon() {
@@ -63,14 +77,14 @@ class Main extends luxe.Game {
 	}
 
 	function _testGround() {
-		new Sprite({
-			color: new Color().rgb(0x800000),
-			pos: RenderMaths.perspectiveProjection(Luxe.screen.mid),
-			size: RenderMaths.perspectiveProjection(Luxe.screen.size)
-			});
+		_ground = new Sprite({ 
+			color: new Color(0.5, 0, 0.3),
+			size: new Vector(Luxe.screen.w, Luxe.screen.h / Config.perspective)
+		});
+		_ground.pos = new Vector(Luxe.screen.mid.x, Luxe.screen.h - _ground.size.y / 2);
+		Config.horizon = _ground.pos.y - _ground.size.y / 2;
 	}
 
 	public override function onmousemove(event: MouseEvent) {
-		_player.setMoveTarget(event.pos);
 	}
 }
