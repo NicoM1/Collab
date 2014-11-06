@@ -1,4 +1,4 @@
-package input;
+package io;
 
 import luxe.Input.Key;
 

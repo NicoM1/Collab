@@ -14,7 +14,7 @@ import luxe.utils.Maths;
 import phoenix.Texture;
 import phoenix.Vector;
 
-import input.InputManager;
+import io.InputManager;
 
 class Player extends Character{
 	
