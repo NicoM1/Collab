@@ -5,18 +5,19 @@ import luxe.Input.Key;
 
 /**
  * This class serves as an input wrapper. It'll use keybindings to avoid stupid
- * things like AZERTY/QWERTY conflict.
- *
+ * things like AZERTY/QWERTY conflict. For the love of God, think about the dudes
+ * who have an AZERTY keyboard!
+
  * TODO : Manage player actions
  * TODO : I/O from/to a config file
  * TODO : Live remapping
  * TODO~: Multiple players
  * TODO~: use get macros or a list based system to avoid too much code.
  */
-class InputManager {
-	static var _instance: InputManager;
+ class InputManager {
+ 	static var _instance: InputManager;
 
-	function new() {
+ 	function new() {
 		// I/O file here
 	}
 
@@ -43,5 +44,9 @@ class InputManager {
 
 	public function playerAction(): Bool {
 		return Luxe.input.keydown(Key.space);
+	}
+
+	public function exit(): Bool {
+		return Luxe.input.keydown(Key.escape);	
 	}
 }

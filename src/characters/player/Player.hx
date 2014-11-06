@@ -66,7 +66,6 @@ class Player extends Character{
 	}
 	
 	function _updateMovement(dt: Float) {
-		// For the love of God, Think of the dudes which avec an AZERTY keyboard!
 		if (_input.playerLeft()) {
 			_worldPos.x -= _speed * dt;
 			flipx = true;
