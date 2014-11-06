@@ -59,8 +59,9 @@ class Player extends Character{
 		super.update(dt);
 	}
 	
-	function _updateMovement(dt: Float) {		
-		if (Luxe.input.keydown(Key.key_a)) {
+	function _updateMovement(dt: Float) {
+		// For the love of God, Think of the dudes which avec an AZERTY keyboard!
+		if (Luxe.input.keydown(Key.key_a) || Luxe.input.keydown(Key.key_q)) {
 			_worldPos.x -= _speed * dt;
 			flipx = true;
 		}
@@ -68,7 +69,7 @@ class Player extends Character{
 			_worldPos.x += _speed * dt;
 			flipx = false;
 		}
-		if (Luxe.input.keydown(Key.key_w)) {
+		if (Luxe.input.keydown(Key.key_w) || Luxe.input.keydown(Key.key_z)) {
 			_worldPos.y -= _speed * dt / Config.perspective;
 			if (_worldPos.y + size.y / 2 < Config.horizon) {
 				_worldPos.y = Config.horizon - size.y / 2;
