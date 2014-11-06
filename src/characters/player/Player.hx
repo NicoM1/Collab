@@ -14,12 +14,15 @@ import luxe.utils.Maths;
 import phoenix.Texture;
 import phoenix.Vector;
 
+import input.InputManager;
 
 class Player extends Character{
 	
 	var _speed: Float = 200;
 	
 	var _shadow: CircleGeometry;
+
+	var _input: InputManager;
 
 	public function new() {
 		var options_: CharacterOptions = {};
@@ -42,6 +45,9 @@ class Player extends Character{
 		});
 		
 		_zAcceleration = -300;
+
+
+		_input = InputManager.instance();
 	}
 	
 	function _onLoad(t: Texture) {
@@ -61,21 +67,21 @@ class Player extends Character{
 	
 	function _updateMovement(dt: Float) {
 		// For the love of God, Think of the dudes which avec an AZERTY keyboard!
-		if (Luxe.input.keydown(Key.key_a) || Luxe.input.keydown(Key.key_q)) {
+		if (_input.playerLeft()) {
 			_worldPos.x -= _speed * dt;
 			flipx = true;
 		}
-		if (Luxe.input.keydown(Key.key_d)) {
+		if (_input.playerRight()) {
 			_worldPos.x += _speed * dt;
 			flipx = false;
 		}
-		if (Luxe.input.keydown(Key.key_w) || Luxe.input.keydown(Key.key_z)) {
+		if (_input.playerUp()) {
 			_worldPos.y -= _speed * dt / Config.perspective;
 			if (_worldPos.y + size.y / 2 < Config.horizon) {
 				_worldPos.y = Config.horizon - size.y / 2;
 			}
 		}
-		if (Luxe.input.keydown(Key.key_s)) {
+		if (_input.playerDown()) {
 			_worldPos.y += _speed * dt / Config.perspective;
 			if (_worldPos.y + size.y / 2 > Luxe.screen.h) {
 				_worldPos.y = Luxe.screen.h - size.y / 2;

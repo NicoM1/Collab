@@ -4,6 +4,7 @@ package;
  * ...
  * @author 
  */
+
 class Config{
 	
 	public static var scale: Float = 1;
