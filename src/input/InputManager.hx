@@ -13,40 +13,41 @@ import luxe.Input.Key;
  * TODO : Live remapping
  * TODO~: Multiple players
  * TODO~: use get macros or a list based system to avoid too much code.
+ *        But I worry about the ugly get_field / set_field names.
  */
  class InputManager {
- 	static var _instance: InputManager;
+    static var _instance: InputManager;
 
- 	function new() {
-		// I/O file here
-	}
+    function new() {
+        // I/O file here
+    }
 
-	public static function instance(): InputManager {
-		if( _instance == null) _instance = new InputManager();
-		return _instance;
-	} 
+    public static function instance(): InputManager {
+        if( _instance == null) _instance = new InputManager();
+        return _instance;
+    } 
 
-	public function playerUp(): Bool {
-		return Luxe.input.keydown(Key.key_z) || Luxe.input.keydown(Key.key_w);
-	}
+    public function playerUp(): Bool {
+        return Luxe.input.keydown(Key.key_z) || Luxe.input.keydown(Key.key_w);
+    }
 
-	public function playerDown(): Bool {
-		return Luxe.input.keydown(Key.key_s);
-	}
+    public function playerDown(): Bool {
+        return Luxe.input.keydown(Key.key_s);
+    }
 
-	public function playerLeft(): Bool {
-		return Luxe.input.keydown(Key.key_a) || Luxe.input.keydown(Key.key_q);
-	}
+    public function playerLeft(): Bool {
+        return Luxe.input.keydown(Key.key_a) || Luxe.input.keydown(Key.key_q);
+    }
 
-	public function playerRight(): Bool {
-		return Luxe.input.keydown(Key.key_d);
-	}
+    public function playerRight(): Bool {
+        return Luxe.input.keydown(Key.key_d);
+    }
 
-	public function playerAction(): Bool {
-		return Luxe.input.keydown(Key.space);
-	}
+    public function playerAction(): Bool {
+        return Luxe.input.keydown(Key.space);
+    }
 
-	public function exit(): Bool {
-		return Luxe.input.keydown(Key.escape);	
-	}
+    public function exit(): Bool {
+        return Luxe.input.keydown(Key.escape);  
+    }
 }
