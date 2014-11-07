@@ -8,10 +8,10 @@
  import sys.io.File;
  import sys.io.FileInput;
  import sys.io.FileOutput;
- import haxe.Json; // Not being used at this moment.
+ import haxe.Json;
  #end
  /**
- * This class is made to save game data as a binary file in desktop targets and Browser DOM Storage for HTML target.
+ * This class is made to save game data as a [json] file in desktop targets and Browser DOM Storage for HTML target.
  * Actually I think only a part of this class will stay and each way of saving will be stored in subclasses to avoid cluttering
  * managing the system more correctly by composition.
  * 
@@ -19,11 +19,11 @@
  * TODO : Non static save locations.
  * TODO : Android (as the rest of the game :-°)
  * TODO~: Compress the saved content with some huffman comrpession as it's in the standard lib.
- * TODO~: The key currently only used on web target could be the file's name in a predefined folder.
- * TODO~: Singleton
+ * TODO~: The key currently only used on web target could be the file's name in a predefined folder. Or a named save with "[key]_filename"
  */
  class LocalSave {
-	 
+	  static var _instance: LocalSave;
+	  
 	 //CHANGED: throws errors instead of tracing, should be up to user to catch errors
 	 
  	#if web
@@ -49,6 +49,14 @@
  			throw "Saving not supported on this target";
  		}
 	}
+	
+	public static function instance(): LocalSave {
+        if( _instance == null) {
+            _instance = new LocalSave();
+        }
+        return _instance;
+    } 
+	 
 
  	public function new() {
  		#if web
@@ -68,7 +76,7 @@
  	}
 
 	//CHANGED: no use allocating strings for this, null works nice with dynamic
- 	public function loadData(key:String = null): Dynamic {
+ 	public function loadData(?key:String): Dynamic {
  		_needLocalSave();
 		
  		#if web
