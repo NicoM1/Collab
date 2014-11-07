@@ -18,6 +18,7 @@
  * TODO : Read config.json to fecth the save location.
  * TODO : Non static save locations.
  * TODO : Android (as the rest of the game :-°)
+ * TODO~: Register keys to manage what's needed by a project and avoid having hardcoded project dependant values in that class?
  * TODO~: Compress the saved content with some huffman comrpession as it's in the standard lib.
  * TODO~: The key currently only used on web target could be the file's name in a predefined folder. Or a named save with "[key]_filename"
  */
