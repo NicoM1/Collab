@@ -13,7 +13,7 @@ class Config{
 	public static var scale: Float = 1;
 	public static var perspective: Float = 1.75;
 	public static var horizon: Float = 0;
-	public static var inputConfigFilePath: String = "input.json"; // Yeah, JSON is human-editable.
+	public static var inputConfigFilePath: String = "input"; // Yeah, JSON is human-editable.
 	public static var defaultKeyConfig: InputKeyList = {
 		up: [Key.up, Key.key_w],
 		down: [Key.down, Key.key_s],

@@ -29,7 +29,7 @@ typedef InputKeyList = {
 
     var _input: InputKeyList;
     function new() {
-        _input = LocalSave.instance.loadData("input");
+        _input = LocalSave.instance.loadData(Config.inputConfigFilePath);
         
         // Keybindings loading.
         var mustSaveConfig: Bool = false;
@@ -42,7 +42,7 @@ typedef InputKeyList = {
         if( _input.exit == null)    {mustSaveConfig = true; _input.exit     = Config.defaultKeyConfig.exit;}
 
         if( mustSaveConfig) {
-           LocalSave.instance.saveData(_input);
+           LocalSave.instance.saveData(Config.inputConfigFilePath, _input);
 		}
     }
 

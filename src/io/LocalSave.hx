@@ -76,7 +76,7 @@
  	}
 
 	//CHANGED: no use allocating strings for this, null works nice with dynamic
- 	public function loadData(?key:String): Dynamic {
+ 	public function loadData(key:String): Dynamic {
  		_needLocalSave();
 		
  		#if web
@@ -84,7 +84,7 @@
 
  		#elseif desktop
  		try {
- 			return Json.parse(File.getContent(Config.inputConfigFilePath));
+ 			return Json.parse(File.getContent(key+".json"));
  		}
  		catch ( e:Dynamic ) {
  			throw "Error While Loading: " + e;
@@ -96,7 +96,7 @@
 
  	}
 
- 	public function saveData(?key:String, data:Dynamic) {
+ 	public function saveData(key:String, data:Dynamic) {
  		_needLocalSave();
 
  		#if web
@@ -105,7 +105,7 @@
 
  		#elseif desktop
  		try{
- 			File.saveContent(Config.inputConfigFilePath, Json.stringify(data)); 			
+ 			File.saveContent(key+".json", Json.stringify(data)); 			
  		}
  		catch(e:Dynamic) {
  			throw "Error While Saving: " + e;
