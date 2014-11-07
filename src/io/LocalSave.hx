@@ -63,8 +63,8 @@
 
  		#elseif desktop
  		_ready = true;
- 		if( !FileSystem.exists(Config.inputConfigFilePath)) {
- 			var file = File.write(Config.inputConfigFilePath);
+ 		if( !FileSystem.exists(Config.inputConfigFilePath+".json")) {
+ 			var file = File.write(Config.inputConfigFilePath+".json");
  			file.writeString("{}");
  			file.close();
  		}
@@ -81,10 +81,6 @@
 
  		#elseif desktop
  		try {
- 			// TODO!: No no file check done!!
- 			if(!FileSystem.exists(key+".json")) {
- 				return null;
- 			}
  			return Json.parse(File.getContent(key+".json"));
  		}
  		catch ( e:Dynamic ) {
