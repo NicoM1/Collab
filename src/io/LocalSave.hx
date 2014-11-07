@@ -31,8 +31,6 @@
         return instance;
 	 }
 	  
-	 //CHANGED: throws errors instead of tracing, should be up to user to catch errors
-	 
  	#if web
  	var _browserStorage:Storage;
  	#else
@@ -75,7 +73,6 @@
 
  	}
 
-	//CHANGED: no use allocating strings for this, null works nice with dynamic
  	public function loadData(key:String): Dynamic {
  		_needLocalSave();
 		
@@ -100,7 +97,6 @@
  		_needLocalSave();
 
  		#if web
-		//CHANGED: no use checking localSaveSupported twice
 		_browserStorage.setItem(key, Json.stringify(data, null, " "));
 
  		#elseif desktop
