@@ -5,12 +5,12 @@ import luxe.Input.Key;
 import io.LocalSave;
 
 typedef InputKeyList = {
-    ?up: Int,
-    ?down: Int,
-    ?left: Int,
-    ?right: Int,
-    ?action: Int,
-    ?exit: Int
+    ?up: Array<Int>,
+    ?down: Array<Int>,
+    ?left: Array<Int>,
+    ?right: Array<Int>,
+    ?action: Array<Int>,
+    ?exit: Array<Int>
 };
 
 /**
@@ -21,6 +21,7 @@ typedef InputKeyList = {
  * TODO : Manage player actions
  * TODO : I/O from/to a config file
  * TODO : Live remapping
+ * TODO : Allow multiple keycodes for single actions
  * TODO~: Multiple players
  * TODO~: use get macros or a list based system to avoid too much code.
  *        But I worry about the ugly get_field / set_field names.
@@ -44,8 +45,9 @@ typedef InputKeyList = {
         if( _input.action == null)  {mustSaveConfig = true; _input.action   = Config.defaultKeyConfig.action;}
         if( _input.exit == null)    {mustSaveConfig = true; _input.exit     = Config.defaultKeyConfig.exit;}
 
-        if( mustSaveConfig)
+        if( mustSaveConfig) {
            _localSave.saveData(_input);
+		}
     }
 
     public static function instance(): InputManager {
@@ -56,26 +58,44 @@ typedef InputKeyList = {
     } 
 
     public function playerUp(): Bool {
-        return Luxe.input.keydown(_input.up);
+		for ( i in _input.up) {
+			if (Luxe.input.keydown(i)) return true;
+		}
+		return false;
     }
 
     public function playerDown(): Bool {
-        return Luxe.input.keydown(_input.down);
+        for ( i in _input.down) {
+			if (Luxe.input.keydown(i)) return true;
+		}
+		return false;
     }
 
     public function playerLeft(): Bool {
-        return Luxe.input.keydown(_input.left);
+        for ( i in _input.left) {
+			if (Luxe.input.keydown(i)) return true;
+		}
+		return false;
     }
 
     public function playerRight(): Bool {
-        return Luxe.input.keydown(_input.right);
+        for ( i in _input.right) {
+			if (Luxe.input.keydown(i)) return true;
+		}
+		return false;
     }
 
     public function playerAction(): Bool {
-        return Luxe.input.keydown(_input.action);
+        for ( i in _input.action) {
+			if (Luxe.input.keydown(i)) return true;
+		}
+		return false;
     }
 
     public function exit(): Bool {
-        return Luxe.input.keydown(_input.exit);  
+        for ( i in _input.exit) {
+			if (Luxe.input.keydown(i)) return true;
+		}
+		return false;
     }
 }

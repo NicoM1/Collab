@@ -13,7 +13,7 @@
  /**
  * This class is made to save game data as a binary file in desktop targets and Browser DOM Storage for HTML target.
  * Actually I think only a part of this class will stay and each way of saving will be stored in subclasses to avoid cluttering
- * managing the system more correclty by composition.
+ * managing the system more correctly by composition.
  * 
  * TODO : Read config.json to fecth the save location.
  * TODO : Non static save locations.
@@ -23,12 +23,15 @@
  * TODO~: Singleton
  */
  class LocalSave {
+	 
+	 //CHANGED: throws errors instead of tracing, should be up to user to catch errors
+	 
  	#if web
  	var _browserStorage:Storage;
  	#else
  	var _ready:Bool;
  	#end
-
+	
  	public function isLocalSaveSupported():Bool {
  		#if web
  		return _browserStorage != null;
@@ -40,12 +43,17 @@
  		trace("Local Storage unsupported on this target");
  		return false;
  	}
+	
+	function _needLocalSave() {
+		if( !isLocalSaveSupported()) {
+ 			throw "Saving not supported on this target";
+ 		}
+	}
 
  	public function new() {
  		#if web
  		_browserStorage = Browser.getLocalStorage();
- 		if( !isLocalSaveSupported())
- 		trace("Local Storage unsupported. Won't be able to save anything.");
+ 		_needLocalSave();
 
  		#elseif desktop
  		_ready = true;
@@ -59,46 +67,40 @@
 
  	}
 
+	//CHANGED: no use allocating strings for this, null works nice with dynamic
  	public function loadData(key:String = null): Dynamic {
- 		if( !isLocalSaveSupported()) {
- 			trace("Loading not supportd on this target");
- 			return "Unsupported";
- 		}
+ 		_needLocalSave();
+		
  		#if web
-
  		return Json.parse(_browserStorage.getItem(key));
 
  		#elseif desktop
  		try {
-
  			return Json.parse(File.getContent(Config.inputConfigFilePath));
  		}
  		catch ( e:Dynamic ) {
- 			trace("Loading Error : " + e);
+ 			throw "Error While Loading: " + e;
  			trace("Disabling save/load on this instance.");
  			_ready = false;
- 			return "Error.";
+ 			return null;
  		}
  		#end
 
  	}
 
- 	public function saveData(key:String = null, data:Dynamic) {
- 		if( !isLocalSaveSupported()) {
- 			trace("Saving not supportd on this target");
- 			return;
- 		}
+ 	public function saveData(?key:String, data:Dynamic) {
+ 		_needLocalSave();
 
  		#if web
- 		if( isLocalSaveSupported())
- 		_browserStorage.setItem(key, Json.stringify(data, null, " "));
+		//CHANGED: no use checking localSaveSupported twice
+		_browserStorage.setItem(key, Json.stringify(data, null, " "));
 
  		#elseif desktop
  		try{
- 			File.saveContent(Config.inputConfigFilePath, Json.stringify(data, null, " ")); 			
+ 			File.saveContent(Config.inputConfigFilePath, Json.stringify(data)); 			
  		}
  		catch(e:Dynamic) {
- 			trace("Saving Error: " + e);
+ 			throw "Error While Saving: " + e;
  			trace("Disabling save/load on this instance.");
  			_ready = false;
  		}
