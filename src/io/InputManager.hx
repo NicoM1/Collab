@@ -38,14 +38,16 @@ typedef InputKeyList = {
             mustSaveConfig = true;
         }
             
-        // Keybindings loading.
-        // TODO : better way?
-        if( _input.up == null       || !Std.is(_input.up, Array))      {mustSaveConfig = true; _input.up       = Config.defaultKeyConfig.up;}
-        if( _input.down == null     || !Std.is(_input.down, Array))    {mustSaveConfig = true; _input.down     = Config.defaultKeyConfig.down;}
-        if( _input.left == null     || !Std.is(_input.left, Array))    {mustSaveConfig = true; _input.left     = Config.defaultKeyConfig.left;}
-        if( _input.right == null    || !Std.is(_input.right, Array))   {mustSaveConfig = true; _input.right    = Config.defaultKeyConfig.right;}
-        if( _input.action == null   || !Std.is(_input.action, Array))  {mustSaveConfig = true; _input.action   = Config.defaultKeyConfig.action;}
-        if( _input.exit == null     || !Std.is(_input.exit, Array))    {mustSaveConfig = true; _input.exit     = Config.defaultKeyConfig.exit;}
+        // Keybindings loading. Reflect helps into getting dynamically an anonymous object's fields.
+        // Here, the comparaison and the initialisation is totally made dynamically and avoids a lot
+        // of redundant code.
+        for(ff in Reflect.fields(Config.defaultKeyConfig)) {
+            var field = Reflect.field(_input, ff);
+            if(field == null || !Std.is(field, Array)) {
+                mustSaveConfig = true;
+                Reflect.setField(_input, ff, Reflect.field(Config.defaultKeyConfig, ff));
+            }
+        }
 
         if( mustSaveConfig) {
            LocalSave.instance.saveData(Config.inputConfigFilePath, _input);
