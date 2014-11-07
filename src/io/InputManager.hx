@@ -19,9 +19,7 @@ typedef InputKeyList = {
  * who have an AZERTY keyboard!
 
  * TODO : Manage player actions
- * TODO : I/O from/to a config file
  * TODO : Live remapping
- * TODO : Allow multiple keycodes for single actions
  * TODO~: Multiple players
  * TODO~: use get macros or a list based system to avoid too much code.
  *        But I worry about the ugly get_field / set_field names.
