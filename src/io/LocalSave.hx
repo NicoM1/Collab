@@ -105,7 +105,7 @@
 
  		#elseif desktop
  		try{
- 			File.saveContent(key+".json", Json.stringify(data)); 			
+ 			File.saveContent(key+".json", Json.stringify(data, null, " ")); 			
  		}
  		catch(e:Dynamic) {
  			throw "Error While Saving: " + e;
