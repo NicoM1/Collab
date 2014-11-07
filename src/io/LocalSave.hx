@@ -22,7 +22,14 @@
  * TODO~: The key currently only used on web target could be the file's name in a predefined folder. Or a named save with "[key]_filename"
  */
  class LocalSave {
-	  static var _instance: LocalSave;
+	 @:isVar static public var instance(get, null): LocalSave;
+	 
+	 static function get_instance(): LocalSave {
+		if( instance == null) {
+            instance = new LocalSave();
+        }
+        return instance;
+	 }
 	  
 	 //CHANGED: throws errors instead of tracing, should be up to user to catch errors
 	 
@@ -49,16 +56,9 @@
  			throw "Saving not supported on this target";
  		}
 	}
-	
-	public static function instance(): LocalSave {
-        if( _instance == null) {
-            _instance = new LocalSave();
-        }
-        return _instance;
-    } 
 	 
-
- 	public function new() {
+	//CHANGED: private to force singleton
+ 	function new() {
  		#if web
  		_browserStorage = Browser.getLocalStorage();
  		_needLocalSave();

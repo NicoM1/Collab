@@ -27,11 +27,9 @@ typedef InputKeyList = {
  class InputManager {
     static var _instance: InputManager;
 
-    var _localSave: LocalSave;
     var _input: InputKeyList;
     function new() {
-        _localSave = new LocalSave();
-        _input = _localSave.loadData("input");
+        _input = LocalSave.instance.loadData("input");
         
         // Keybindings loading.
         var mustSaveConfig: Bool = false;
@@ -44,7 +42,7 @@ typedef InputKeyList = {
         if( _input.exit == null)    {mustSaveConfig = true; _input.exit     = Config.defaultKeyConfig.exit;}
 
         if( mustSaveConfig) {
-           _localSave.saveData(_input);
+           LocalSave.instance.saveData(_input);
 		}
     }
 
