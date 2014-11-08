@@ -16,19 +16,18 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="C:\HaxeToolkit\haxe\lib\luxe\git" />
-    <class path="C:\HaxeToolkit\haxe\lib\hxcpp\3,1,39" />
     <class path="C:\HaxeToolkit\haxe\lib\snow\git" />
     <class path="src" />
-    <class path="bin\windows.build\haxe" />
+    <class path="bin\web.build\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="no-compilation&#xA;windows&#xA;arch-32&#xA;desktop&#xA;hxcpp_static_std&#xA;snow_audio_openal&#xA;snow_input_sdl&#xA;snow_window_sdl&#xA;luxe_native&#xA;parcel_thread_disabled&#xA;snow_native&#xA;luxe&#xA;hxcpp&#xA;snow" />
+    <option directives="no-compilation&#xA;web&#xA;arch-web&#xA;debug&#xA;hxcpp_static_std&#xA;snow_audio_howlerjs&#xA;luxe_web&#xA;snow_web&#xA;luxe&#xA;snow" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="LuxeApp" />
     <option enabledebug="False" />
-    <option additional="-resource version@version&#xA;-resource build@build&#xA;-resource luxe/defaults/ui/tiny.ui.png@tiny.ui.png&#xA;-resource luxe/defaults/ui/tiny.button.png@tiny.button.png&#xA;-resource luxe/defaults/fonts/cabin.png@cabin.png&#xA;-resource luxe/defaults/fonts/cabin.fnt@cabin.fnt&#xA;-resource phoenix/defaults/shaders/vert.glsl@default.vert.glsl&#xA;-resource phoenix/defaults/shaders/frag.glsl@default.frag.glsl&#xA;-resource phoenix/defaults/shaders/frag.textured.glsl@default.frag.textured.glsl" />
+    <option additional="-resource version@version&#xA;-resource build@build&#xA;-resource luxe/defaults/ui/tiny.ui.png@tiny.ui.png&#xA;-resource luxe/defaults/ui/tiny.button.png@tiny.button.png&#xA;-resource luxe/defaults/fonts/cabin.png@cabin.png&#xA;-resource luxe/defaults/fonts/cabin.fnt@cabin.fnt&#xA;-resource phoenix/defaults/shaders/vert.glsl@default.vert.glsl&#xA;-resource phoenix/defaults/shaders/frag.glsl@default.frag.glsl&#xA;-resource phoenix/defaults/shaders/frag.textured.glsl@default.frag.textured.glsl&#xA;-debug" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

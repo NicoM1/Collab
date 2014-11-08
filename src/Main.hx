@@ -17,7 +17,6 @@ import phoenix.geometry.Geometry;
 import phoenix.geometry.Vertex;
 import phoenix.RenderTexture;
 import phoenix.Shader;
-import sys.io.File;
 import utils.L;
 import utils.RenderMaths;
 import weapons.parts.AmmoStorage;
@@ -49,7 +48,9 @@ class Main extends luxe.Game {
 		
 		new L();
 		
-		InputRemapper.reMap(cast Json.parse(File.getContent("assets/input.json")).actions);
+		#if !web
+		InputRemapper.reMap();
+		#end
 		
 		_finalOutput = new RenderTexture(Luxe.resources, Luxe.screen.size);
 		_finalBatch = Luxe.renderer.create_batcher( { no_add: true } );
