@@ -6,7 +6,6 @@ import haxe.Json;
 import sys.io.File;
 
 class InputMacro {
-
 	/**
 	 * Builds input testing functions based on input.json file
 	 * TODO!: safety checks
@@ -38,21 +37,3 @@ class InputMacro {
 		return fields;
 	}
 }
-
-/*
-typedef Field = {
-	var name : String;
-	@:optional var doc : Null<String>;
-	@:optional var access : Array<Access>;
-	var kind : FieldType;
-	var pos : Position;
-	@:optional var meta : Metadata;
-}
-
-typedef TypePath = {
-	var pack : Array<String>;
-	var name : String;
-	@:optional var params : Array<TypeParam>;
-	@:optional var sub : Null<String>;
-}
-*/
