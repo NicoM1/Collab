@@ -139,6 +139,10 @@ class Main extends luxe.Game {
 		});
 		_ground.pos = new Vector(Luxe.screen.mid.x, Luxe.screen.h - _ground.size.y / 2);
 		Config.horizon = _ground.pos.y - _ground.size.y / 2;
+		
+		_ground.geometry.vertices[0].color = new Color(0.3, 0, 0.175);
+		_ground.geometry.vertices[1].color = new Color(0.3, 0, 0.175);
+		_ground.geometry.vertices[4].color = new Color(0.3, 0, 0.175);
 	}
 
 	public override function onmousemove(event: MouseEvent) {
