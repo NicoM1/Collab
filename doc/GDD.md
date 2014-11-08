@@ -82,3 +82,42 @@
 
 0x64bc #here could just be a seed, or individual properties or whatever
 ```
+
+###Input Handling
+
+input actions are stored in json, which is then parsed by a macro into useable funtions:
+
+```
+{
+    "actions": [
+        {
+            "name": "playerleft",
+            "codes": ["key_a", "left"]
+        },
+        {
+            "name": "playerright",
+            "codes": ["key_d", "right"]
+        },
+        {
+            "name": "playerup",
+            "codes": ["key_w", "up"]
+        },
+        {
+            "name": "playerdown",
+            "codes": ["key_s", "down"]
+        },
+        {
+            "name": "playerjump",
+            "codes": ["space"]
+        }
+    ]
+}
+```
+
+the above json will compile into: 
+
+![Imgur](http://i.imgur.com/KNwLfLc.png)
+
+which has functions to check status:
+
+![Imgur](http://i.imgur.com/qPnbnBD.png)
