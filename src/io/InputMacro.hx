@@ -10,6 +10,7 @@ class InputMacro {
 	/**
 	 * Builds input testing functions based on input.json file
 	 * TODO!: safety checks
+	 * TODO~: key-remapping after build (not handled in macro, just commenting here)
 	 */
 	macro static public function buildInput(): Array<Field> {
 		var fields = Context.getBuildFields();
