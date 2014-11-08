@@ -6,8 +6,6 @@ import snow.input.Keycodes;
 @:build(io.InputMacro.buildInput())
 class InputManager {}
 
-
-//TODO!: safety checks
 @:allow(io.InputRemapper)
 class InputAction {
 	var _keys: Array<Int>;
@@ -42,7 +40,11 @@ class InputAction {
 		_keys = new Array<Int>();
 		for (k in keys) {
 			if (k == null) continue;
-			_keys.push(Reflect.field(snow.input.Keycodes, k));
+			var code: Int = Reflect.field(snow.input.Keycodes, k);
+			if (code == 0) {
+				throw "invalid key-name: " + k;
+			}
+			_keys.push(code);
 		}
 	}
 }
@@ -55,7 +57,7 @@ class InputRemapper {
 				field._reMap(a.codes);
 			}
 			else {
-				throw "input.json contains invalid action.";
+				throw "input.json contains invalid action: " + a.name;
 			}
 		}
 	}

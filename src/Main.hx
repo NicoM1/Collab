@@ -99,7 +99,7 @@ class Main extends luxe.Game {
 	}
 
 	override function update(dt:Float) {
-		
+
 	}
 	
 	function _setUpCamera() {	

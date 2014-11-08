@@ -8,8 +8,6 @@ import sys.io.File;
 class InputMacro {
 	/**
 	 * Builds input testing functions based on input.json file
-	 * TODO!: safety checks
-	 * TODO~: key-remapping after build (not handled in macro, just commenting here)
 	 */
 	macro static public function buildInput(): Array<Field> {
 		var fields = Context.getBuildFields();
@@ -20,7 +18,13 @@ class InputMacro {
 			name: "InputAction",
 		});
 		
-		var input: Array<Action> = cast Json.parse(File.getContent("assets/input.json")).actions;
+		var input: Array<Action>;
+		try {
+			input = cast Json.parse(File.getContent("assets/input.json")).actions;
+		}
+		catch (e: Dynamic) {
+			throw "input.json is invalid";
+		}
 		
 		for (i in input) {
 			var name = i.name;
