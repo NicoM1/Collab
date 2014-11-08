@@ -121,3 +121,7 @@ the above json will compile into:
 which has functions to check status:
 
 ![Imgur](http://i.imgur.com/qPnbnBD.png)
+
+####Remapping by User
+
+at build time, the above JSON is built into a properly typed class. This allows us to have a clean API, but also have safety checks when someone remaps an action that doesn't exist. In order to remap keys after build, all the user has to do is edit input.json, reflection will take care of updating the relevant input class.
