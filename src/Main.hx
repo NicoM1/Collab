@@ -1,6 +1,7 @@
 package;
 
 import characters.player.Player;
+import haxe.Json;
 import io.InputManager;
 import luxe.AppConfig;
 import luxe.Camera.SizeMode;
@@ -16,6 +17,7 @@ import phoenix.geometry.Geometry;
 import phoenix.geometry.Vertex;
 import phoenix.RenderTexture;
 import phoenix.Shader;
+import sys.io.File;
 import utils.L;
 import utils.RenderMaths;
 import weapons.parts.AmmoStorage;
@@ -46,6 +48,8 @@ class Main extends luxe.Game {
 	override function ready() {
 		
 		new L();
+		
+		InputRemapper.reMap(cast Json.parse(File.getContent("assets/input.json")).actions);
 		
 		_finalOutput = new RenderTexture(Luxe.resources, Luxe.screen.size);
 		_finalBatch = Luxe.renderer.create_batcher( { no_add: true } );

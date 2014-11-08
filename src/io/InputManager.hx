@@ -1,5 +1,6 @@
 package io;
 
+import io.InputMacro.Action;
 import snow.input.Keycodes;
 
 @:build(io.InputMacro.buildInput())
@@ -7,15 +8,13 @@ class InputManager {}
 
 
 //TODO!: safety checks
+@:allow(io.InputRemapper)
 class InputAction {
 	var _keys: Array<Int>;
 	
-	public function new(keys_: Array<String>) {
-		_keys = new Array<Int>();
-		for (k in keys_) {
-			if (k == null) continue;
-			_keys.push(Reflect.field(Keycodes, k));
-		}
+	public function new(keys_: Array<String>) {	
+		Reflect.field(Keycodes, "up");
+		_reMap(keys_);
 	}
 	
 	public function pressed(): Bool {
@@ -37,5 +36,27 @@ class InputAction {
 			if (Luxe.input.keydown(k)) return true;
 		}
 		return false;
+	}
+	
+	function _reMap(keys: Array<String>) {
+		_keys = new Array<Int>();
+		for (k in keys) {
+			if (k == null) continue;
+			_keys.push(Reflect.field(snow.input.Keycodes, k));
+		}
+	}
+}
+
+class InputRemapper {
+	static public function reMap(actions: Array<Action>) {
+		for (a in actions) {
+			var field: InputAction = Reflect.field(InputManager, a.name);
+			if (field != null) {
+				field._reMap(a.codes);
+			}
+			else {
+				throw "input.json contains invalid action.";
+			}
+		}
 	}
 }

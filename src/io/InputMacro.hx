@@ -20,7 +20,7 @@ class InputMacro {
 			name: "InputAction",
 		});
 		
-		var input: Array<Dynamic> = cast Json.parse(File.getContent("assets/input.json")).actions;
+		var input: Array<Action> = cast Json.parse(File.getContent("assets/input.json")).actions;
 		
 		for (i in input) {
 			var name = i.name;
@@ -36,4 +36,9 @@ class InputMacro {
 		
 		return fields;
 	}
+}
+
+typedef Action = {
+	name: String,
+	codes: Array<String>
 }
