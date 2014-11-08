@@ -1,6 +1,7 @@
 package;
 
 import characters.player.Player;
+import io.InputManager;
 import luxe.Camera.SizeMode;
 import luxe.Color;
 import luxe.Input;
@@ -18,6 +19,7 @@ import weapons.parts.Body;
 import weapons.parts.Cannon;
 import weapons.parts.TechCore;
 import weapons.WeaponBase;
+import io.InputMacro;
 
 class Main extends luxe.Game {	
 	
