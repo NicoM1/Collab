@@ -15,6 +15,7 @@ class InputAction {
 	var _keys: Array<Int>;
 	
 	public function new(keys_: Array<String>) {	
+		//NOTE: weird hack or reflection appears to not work
 		Reflect.field(Keycodes, "up");
 		_reMap(keys_);
 	}

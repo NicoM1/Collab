@@ -17,6 +17,7 @@ import phoenix.geometry.Geometry;
 import phoenix.geometry.Vertex;
 import phoenix.RenderTexture;
 import phoenix.Shader;
+import snow.input.Keycodes;
 import utils.L;
 import utils.RenderMaths;
 import weapons.parts.AmmoStorage;
@@ -42,6 +43,7 @@ class Main extends luxe.Game {
 	override public function config(config:AppConfig):AppConfig {
 		config.window.resizable = false;
 		return config;
+		
 	}
 	
 	override function ready() {
