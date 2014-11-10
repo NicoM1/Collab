@@ -19,6 +19,10 @@
 		{
 			"name": "playerjump",
 			"codes": ["space"]
+		},
+		{
+			"name": "fireweapon",
+			"codes": ["key_f", "key_b"]
 		}
 	]
 }

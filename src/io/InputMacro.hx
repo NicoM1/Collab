@@ -40,7 +40,7 @@ class InputMacro {
 			fields.push(newField);
 		}
 		
-		return fields;
+		return fields;	
 	}
 }
 

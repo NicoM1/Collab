@@ -22,11 +22,14 @@ class Player extends Character{
 	
 	var _shadow: CircleGeometry;
 
+	var _shaderExpansionPercent: Float = 0.02;
+
 	public function new() {
-		var options_: CharacterOptions = {};
-		options_.texture = Luxe.loadTexture("assets/images/Player.png", _onLoad);
-		options_.pos = new Vector(0, 0);
-		options_.depth = 6;
+		var options_: CharacterOptions = {
+			texture: Luxe.loadTexture("assets/images/Player.png", _onLoad),
+			pos: new Vector(0, 0),
+			depth: 6
+		}; 
 		
 		super(options_);	
 		
@@ -54,9 +57,8 @@ class Player extends Character{
 
 		_shadow.transform.pos.x = _worldPos.x;
 		_shadow.transform.pos.y = _worldPos.y + 10;
-		_shadow.transform.scale.x = 1 + _zHeight * 0.02;
-		_shadow.transform.scale.y = 1 + _zHeight * 0.02;
-		
+		_shadow.transform.scale.y = _shadow.transform.scale.x = 1 + _zHeight * _shaderExpansionPercent;
+
 		super.update(dt);
 	}
 	

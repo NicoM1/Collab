@@ -27,7 +27,7 @@ import weapons.parts.TechCore;
 import weapons.WeaponBase;
 import io.InputMacro;
 
-class Main extends luxe.Game {	
+class Main extends luxe.Game {
 	
 	var _bufferWidth: Float = 0;
 	var _bufferHeight: Float = 0;
@@ -53,7 +53,7 @@ class Main extends luxe.Game {
 		#if !web
 		InputRemapper.reMap();
 		#end
-		
+
 		_finalOutput = new RenderTexture(Luxe.resources, Luxe.screen.size);
 		_finalBatch = Luxe.renderer.create_batcher( { no_add: true } );
 		
@@ -102,7 +102,7 @@ class Main extends luxe.Game {
 	}
 
 	override function update(dt:Float) {
-
+		
 	}
 	
 	function _setUpCamera() {	
