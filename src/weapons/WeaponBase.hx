@@ -20,6 +20,7 @@ class WeaponBase extends Sprite {
 	var cannon: Cannon;
 	var techCore: TechCore;
 	var ammoStorage: AmmoStorage;
+    var bulletSystem: BulletSystem;
 	
 	// The weapon should store the sum of the stats to avoid calling multiple
     // variables each time we need them. That'll avoid changing part values.
@@ -33,19 +34,24 @@ class WeaponBase extends Sprite {
 	 // TODO : Add a default piece for each parts.
 	public function new(options_: WeaponOptions) {
 		super(options_);
-        this.body = options_.body;
-        this.cannon = options_.cannon;
-        this.techCore = options_.techCore;
-        this.ammoStorage = options_.ammoStorage;
+        body = options_.body;
+        cannon = options_.cannon;
+        techCore = options_.techCore;
+        ammoStorage = options_.ammoStorage;
         _setStatsFromParts();
+        bulletSystem = new BulletSystem();
 	}
+
+    public function fire() {
+        bulletSystem.fireBullet(AmmoType.Basic);
+    }
 	
 	/**
      * Needs to be called to set up correctly weapon stat from the parts at
      * creation or part change.
      * TODO?: x2, x3, xn fac
      */
-     private function _setStatsFromParts() {
+     function _setStatsFromParts() {
         _ammoType = cannon.ammoType;
         _clipSize = ammoStorage.clipSize;
         _energyUsage = body.energyUsage + techCore.energyUsage;

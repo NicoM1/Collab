@@ -5,6 +5,9 @@ import luxe.Input.Key;
 import luxe.options.DrawOptions.DrawCircleOptions;
 import luxe.Text;
 import phoenix.geometry.CircleGeometry;
+import phoenix.RenderTexture;
+import phoenix.Batcher;
+import luxe.Sprite;
 import utils.L;
 
 import luxe.Color;
@@ -16,19 +19,24 @@ import phoenix.Vector;
 
 import io.InputManager;
 
+import weapons.WeaponBase;
+import weapons.parts.*;
+
 class Player extends Character{
 	
 	var _speed: Float = 200;
-	
-	var _shadow: CircleGeometry;
 
 	var _shaderExpansionPercent: Float = 0.02;
+
+	var _shadow: CircleGeometry;
+
+	var _weapon: WeaponBase;
 
 	public function new() {
 		var options_: CharacterOptions = {
 			texture: Luxe.loadTexture("assets/images/Player.png", _onLoad),
 			pos: new Vector(0, 0),
-			depth: 6
+			depth: 6,
 		}; 
 		
 		super(options_);	
@@ -42,7 +50,14 @@ class Player extends Character{
 			ry: r/Config.perspective,
 			x: _worldPos.x,
 			y: _worldPos.y + 10,
-			depth: 5
+			depth: 5,
+		});
+
+		_weapon = new WeaponBase ({	
+			body: new Body({}), 
+			cannon: new Cannon({}),
+			techCore: new TechCore({}), 
+			ammoStorage: new AmmoStorage({})								
 		});
 		
 		_zAcceleration = -300;
@@ -54,6 +69,7 @@ class Player extends Character{
 	
 	override public function update(dt: Float) {
 		_updateMovement(dt);
+		_updateWeapon();
 
 		_shadow.transform.pos.x = _worldPos.x;
 		_shadow.transform.pos.y = _worldPos.y + 10;
@@ -86,6 +102,12 @@ class Player extends Character{
 		
 		if (_onGround() && InputManager.playerjump.pressed()) {
 			_zVelocity = 150;
+		}
+	}
+
+	function _updateWeapon() {
+		if(InputManager.fireweapon.pressed()) {
+			_weapon.fire();
 		}
 	}
 }
