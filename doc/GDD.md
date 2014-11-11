@@ -129,3 +129,5 @@ at build time, the above JSON is built into a properly typed class. This allows 
 ####Thinking thoughts:
 - weapon aim goes left/right/up/down but not back/front (y axis)
 - levels scroll to the right, sometimes with gate blocking the path until actions are completed
+- small enemies swarm like a shmup but with a smaller amount
+- large bosses occur at specific times
