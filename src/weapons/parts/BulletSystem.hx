@@ -3,6 +3,8 @@ package weapons.parts;
 import luxe.Component;
 import weapons.ammo.*;
 
+import phoenix.Vector;
+
 class BulletSystem extends Component{
 	
 	var _bullets: Array<Bullet>;
@@ -19,16 +21,14 @@ class BulletSystem extends Component{
 		}
 	}
 
-	public function fireBullet(type: AmmoType, angle: Float) {
+	public function fireBullet(type: AmmoType, angle: Vector) {
 		var bullet:Bullet = Bullet.make(type);
 		bullet.pos.x = entity.parent.pos.x;
 		bullet.pos.y = entity.parent.pos.y;
 
-		bullet.velocity.x = Math.sin(angle);
-		bullet.velocity.y = Math.cos(angle);
-		trace(bullet.velocity);
+		bullet.velocity.x = angle.x;
+		bullet.velocity.y = angle.y;
 		bullet.velocity.multiplyScalar(100);
-		trace(bullet.velocity);	
 
 		_bullets.push(bullet);
 	}

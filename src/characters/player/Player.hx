@@ -109,8 +109,8 @@ class Player extends Character{
 	function _updateWeapon() {
 		if(InputManager.fireweapon.pressed()) {
 			//TODO: Explain why the hell this works
-			var angle: Float = -(Math.atan2(pos.y - Luxe.mouse.y, pos.x - Luxe.mouse.x)+Maths.radians(90));
-			trace(angle);
+			var angle: Vector = new Vector(Luxe.mouse.x - pos.x, Luxe.mouse.y - pos.y);
+			angle.normalize();
 
 			_weapon.fire(angle);
 		}

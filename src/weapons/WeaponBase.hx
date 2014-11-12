@@ -5,6 +5,8 @@ import luxe.Sprite;
 import weapons.ammo.AmmoType;
 import weapons.parts.*;
 
+import phoenix.Vector;
+
 
 typedef WeaponOptions = {
 	> SpriteOptions,
@@ -43,7 +45,7 @@ class WeaponBase extends Sprite {
         add(bulletSystem);
 	}
 
-    public function fire(angle: Float) {
+    public function fire(angle: Vector) {
         bulletSystem.fireBullet(AmmoType.Basic, angle);
     }
 	
