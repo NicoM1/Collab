@@ -57,7 +57,8 @@ class Player extends Character{
 			body: new Body({}), 
 			cannon: new Cannon({}),
 			techCore: new TechCore({}), 
-			ammoStorage: new AmmoStorage({})								
+			ammoStorage: new AmmoStorage({}),
+			parent: this				
 		});
 		
 		_zAcceleration = -300;
@@ -107,7 +108,11 @@ class Player extends Character{
 
 	function _updateWeapon() {
 		if(InputManager.fireweapon.pressed()) {
-			_weapon.fire();
+			var angle: Float = 90;
+			if(flipx) {
+				angle = 270;
+			}
+			_weapon.fire(Maths.radians(angle));
 		}
 	}
 }

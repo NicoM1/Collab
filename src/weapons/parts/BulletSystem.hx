@@ -11,8 +11,6 @@ class BulletSystem extends Component{
 	public function new() {
 		super({name: 'bullet-system'});
 		_bullets = new Array<Bullet>();
-
-		fireBullet(AmmoType.Basic);
 	}
 
 	override function update(dt: Float) {
@@ -21,7 +19,17 @@ class BulletSystem extends Component{
 		}
 	}
 
-	public function fireBullet(type: AmmoType) {
-		_bullets.push(Bullet.make(type));
+	public function fireBullet(type: AmmoType, angle: Float) {
+		var bullet:Bullet = Bullet.make(type);
+		bullet.pos.x = entity.parent.pos.x;
+		bullet.pos.y = entity.parent.pos.y;
+
+		bullet.velocity.x = Math.sin(angle);
+		bullet.velocity.y = Math.cos(angle);
+		trace(bullet.velocity);
+		bullet.velocity.multiplyScalar(100);
+		trace(bullet.velocity);	
+
+		_bullets.push(bullet);
 	}
 }

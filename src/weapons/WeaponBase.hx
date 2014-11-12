@@ -40,10 +40,11 @@ class WeaponBase extends Sprite {
         ammoStorage = options_.ammoStorage;
         _setStatsFromParts();
         bulletSystem = new BulletSystem();
+        add(bulletSystem);
 	}
 
-    public function fire() {
-        bulletSystem.fireBullet(AmmoType.Basic);
+    public function fire(angle: Float) {
+        bulletSystem.fireBullet(AmmoType.Basic, angle);
     }
 	
 	/**
