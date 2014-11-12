@@ -5,9 +5,9 @@ import luxe.Input.Key;
 import luxe.options.DrawOptions.DrawCircleOptions;
 import luxe.Text;
 import phoenix.geometry.CircleGeometry;
-import utils.L;
 
 import luxe.Color;
+import luxe.Entity;
 import luxe.options.SpriteOptions;
 import luxe.utils.Maths;
 
@@ -46,6 +46,7 @@ class Player extends Character{
 		});
 		
 		_zAcceleration = -300;
+
 	}
 	
 	function _onLoad(t: Texture) {
@@ -54,7 +55,6 @@ class Player extends Character{
 	
 	override public function update(dt: Float) {
 		_updateMovement(dt);
-
 		_shadow.transform.pos.x = _worldPos.x;
 		_shadow.transform.pos.y = _worldPos.y + 10;
 		_shadow.transform.scale.y = _shadow.transform.scale.x = 1 + _zHeight * _shaderExpansionPercent;

@@ -5,17 +5,18 @@ import luxe.options.SpriteOptions;
 import luxe.Vector;
 import luxe.Sprite;
 import utils.RenderMaths;
+import utils.steer.Boid;
 
 typedef CharacterOptions = {
 	> SpriteOptions,
 }
 
-class Character extends Sprite {
+class Character extends Sprite implements Boid {
 
 	/**
 	 * This vector stores the actual character position. pos is only used for graphical render.
 	**/
-	var _worldPos: Vector;
+	public var _worldPos(default, null): Vector;
 	
 	var _acceleration: Vector;
 	var _velocity: Vector;
@@ -56,4 +57,17 @@ class Character extends Sprite {
 	function _onGround(): Bool {
 		return _zHeight == 0;
 	}
+
+	public function getVelocity() :Vector {
+		return _velocity;
+	}
+    public function getMaxVelocity() :Float {
+    	return 60;
+    }
+    public function getPosition() :Vector {
+    	return _worldPos;
+    }
+    public function getMass() :Float {
+    	return 5;
+    }
 }

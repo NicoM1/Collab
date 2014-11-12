@@ -1,11 +1,13 @@
 package;
 
 import characters.player.Player;
+import characters.Character;
 import haxe.Json;
 import io.InputManager;
 import luxe.AppConfig;
 import luxe.Camera.SizeMode;
 import luxe.Color;
+import luxe.Entity;
 import luxe.Input;
 import luxe.Sprite;
 import luxe.options.DrawOptions.DrawCircleOptions;
@@ -20,6 +22,7 @@ import phoenix.Shader;
 import snow.input.Keycodes;
 import utils.L;
 import utils.RenderMaths;
+import utils.steer.SteeringManager;
 import weapons.parts.AmmoStorage;
 import weapons.parts.Body;
 import weapons.parts.Cannon;
@@ -39,6 +42,7 @@ class Main extends luxe.Game {
 	
 	var _player: Player;
 	var _ground: Sprite;
+	var meh: Character;
 
 	override public function config(config:AppConfig):AppConfig {
 		config.window.resizable = false;
@@ -102,7 +106,12 @@ class Main extends luxe.Game {
 	}
 
 	override function update(dt:Float) {
-		
+		meh.getVelocity().set_xy(Luxe.mouse.x - meh.pos.x, Luxe.mouse.y - meh.pos.y);
+		meh._worldPos.copy_from(Luxe.mouse);	
+		//cast(_player.get("steering"), SteeringManager).seek(meh.pos);
+		//cast(_player.get("steering"), SteeringManager).flee(meh.pos); // TODO : borken?
+		cast(_player.get("steering"), SteeringManager).pursuit(meh);
+		//cast(_player.get("steering"), SteeringManager).wander(); // TODO : borken?
 	}
 	
 	function _setUpCamera() {	
@@ -129,7 +138,9 @@ class Main extends luxe.Game {
 	}
 	
 	function _testPlayer() {
+		meh = new Character({pos: new Vector(400, 300)});
 		_player = new Player();
+		_player.add(new SteeringManager(_player));
 	}
 
 	function _testGround() {
