@@ -12,5 +12,4 @@ class Config {
 	public static var perspective: Float = 1.75;
 	public static var horizon: Float = 0;
 	public static var inputConfigFilePath: String = "assets/input.json";
-    public static var bulletCount: Int = 0; 
 }

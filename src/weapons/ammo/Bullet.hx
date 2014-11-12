@@ -2,6 +2,8 @@ package weapons.ammo;
 
 import luxe.Sprite;
 import phoenix.Vector;
+import phoenix.geometry.CircleGeometry;
+import phoenix.Color;
 
 class Bullet extends Sprite{
 
@@ -19,7 +21,8 @@ class Bullet extends Sprite{
 
 	function new() {
 		super({
-			name: 'bullet-'+Config.bulletCount++,
+			name: 'bullet',
+			name_unique: true,
 			depth: 10,
 		});
 
@@ -28,6 +31,6 @@ class Bullet extends Sprite{
 
 	override function update(dt: Float) {
 		pos.x += velocity.x * dt;
-		pos.y += velocity.y * dt * Config.perspective;
+		pos.y += velocity.y * dt / Config.perspective;
 	}
 }
