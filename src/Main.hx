@@ -1,16 +1,23 @@
 package;
 
 import characters.player.Player;
+import haxe.Json;
+import io.InputManager;
+import luxe.AppConfig;
 import luxe.Camera.SizeMode;
 import luxe.Color;
 import luxe.Input;
 import luxe.Sprite;
 import luxe.options.DrawOptions.DrawCircleOptions;
 import luxe.Vector;
+import phoenix.Batcher;
 import phoenix.Batcher.PrimitiveType;
 import phoenix.geometry.CircleGeometry;
 import phoenix.geometry.Geometry;
 import phoenix.geometry.Vertex;
+import phoenix.RenderTexture;
+import phoenix.Shader;
+import snow.input.Keycodes;
 import utils.L;
 import utils.RenderMaths;
 import weapons.parts.AmmoStorage;
@@ -18,26 +25,74 @@ import weapons.parts.Body;
 import weapons.parts.Cannon;
 import weapons.parts.TechCore;
 import weapons.WeaponBase;
+import io.InputMacro;
 
-class Main extends luxe.Game {	
+class Main extends luxe.Game {
 	
 	var _bufferWidth: Float = 0;
 	var _bufferHeight: Float = 0;
-	var _player: Player;
 	
+	var _finalOutput: RenderTexture;
+	var _finalBatch: Batcher;
+	var _finalView: Sprite;
+	var _finalShader: Shader;
+	
+	var _player: Player;
 	var _ground: Sprite;
 
+	override public function config(config:AppConfig):AppConfig {
+		config.window.resizable = false;
+		return config;
+		
+	}
+	
 	override function ready() {
 		
 		new L();
 		
-		_bufferWidth = Luxe.screen.w / 2;
-		_bufferHeight = Luxe.screen.h / 2;
+		#if !web
+		InputRemapper.reMap();
+		#end
+
+		_finalOutput = new RenderTexture(Luxe.resources, Luxe.screen.size);
+		_finalBatch = Luxe.renderer.create_batcher( { no_add: true } );
 		
+		_finalShader = Luxe.loadShader("assets/shaders/tiltshift.fs");
+		
+		_finalView = new Sprite({
+			centered: false,
+			pos: new Vector(0, 0),
+			size: Luxe.screen.size,
+			texture: _finalOutput,
+			shader: _finalShader,
+			batcher: _finalBatch
+		});
+		
+		Luxe.renderer.clear_color.rgb(0x121212);
+		
+		//_bufferWidth = Luxe.screen.w / 2;
+		//_bufferHeight = Luxe.screen.h / 2;	
 		//_setUpCamera();
 		//_testWeapon();
 		_testPlayer();
 		_testGround();
+	}
+	
+	override public function onprerender() {
+		Luxe.renderer.target = _finalOutput;
+		Luxe.renderer.clear(new Color(0, 0, 0, 1));
+	}
+	
+	override public function onpostrender() {
+		Luxe.renderer.target = null;
+		
+		Luxe.renderer.clear(new Color(1, 0, 0, 1));
+		
+		Luxe.renderer.blend_mode(BlendMode.src_alpha, BlendMode.zero);
+		
+		_finalBatch.draw();
+		
+		Luxe.renderer.blend_mode();
 	}
 	
 	override function onkeyup(e:KeyEvent) {
@@ -47,6 +102,7 @@ class Main extends luxe.Game {
 	}
 
 	override function update(dt:Float) {
+		
 	}
 	
 	function _setUpCamera() {	
@@ -83,6 +139,10 @@ class Main extends luxe.Game {
 		});
 		_ground.pos = new Vector(Luxe.screen.mid.x, Luxe.screen.h - _ground.size.y / 2);
 		Config.horizon = _ground.pos.y - _ground.size.y / 2;
+		
+		_ground.geometry.vertices[0].color = new Color(0.3, 0, 0.175);
+		_ground.geometry.vertices[1].color = new Color(0.3, 0, 0.175);
+		_ground.geometry.vertices[4].color = new Color(0.3, 0, 0.175);
 	}
 
 	public override function onmousemove(event: MouseEvent) {

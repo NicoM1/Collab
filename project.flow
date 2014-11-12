@@ -19,6 +19,6 @@
     files : {
       config : 'config.json',
       assets : 'assets/'
-    }
+    } 
   }
 }

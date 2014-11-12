@@ -14,7 +14,7 @@ import luxe.utils.Maths;
 import phoenix.Texture;
 import phoenix.Vector;
 
-import input.InputManager;
+import io.InputManager;
 
 class Player extends Character{
 	
@@ -22,13 +22,14 @@ class Player extends Character{
 	
 	var _shadow: CircleGeometry;
 
-	var _input: InputManager;
+	var _shaderExpansionPercent: Float = 0.02;
 
 	public function new() {
-		var options_: CharacterOptions = {};
-		options_.texture = Luxe.loadTexture("assets/images/Player.png", _onLoad);
-		options_.pos = new Vector(0, 0);
-		options_.depth = 6;
+		var options_: CharacterOptions = {
+			texture: Luxe.loadTexture("assets/images/Player.png", _onLoad),
+			pos: new Vector(0, 0),
+			depth: 6
+		}; 
 		
 		super(options_);	
 		
@@ -45,9 +46,6 @@ class Player extends Character{
 		});
 		
 		_zAcceleration = -300;
-
-
-		_input = InputManager.instance();
 	}
 	
 	function _onLoad(t: Texture) {
@@ -59,36 +57,34 @@ class Player extends Character{
 
 		_shadow.transform.pos.x = _worldPos.x;
 		_shadow.transform.pos.y = _worldPos.y + 10;
-		_shadow.transform.scale.x = 1 + _zHeight * 0.02;
-		_shadow.transform.scale.y = 1 + _zHeight * 0.02;
-		
+		_shadow.transform.scale.y = _shadow.transform.scale.x = 1 + _zHeight * _shaderExpansionPercent;
+
 		super.update(dt);
 	}
 	
 	function _updateMovement(dt: Float) {
-		// For the love of God, Think of the dudes which avec an AZERTY keyboard!
-		if (_input.playerLeft()) {
+		if (InputManager.playerleft.down()) {
 			_worldPos.x -= _speed * dt;
 			flipx = true;
 		}
-		if (_input.playerRight()) {
+		if (InputManager.playerright.down()) {
 			_worldPos.x += _speed * dt;
 			flipx = false;
 		}
-		if (_input.playerUp()) {
+		if (InputManager.playerup.down()) {
 			_worldPos.y -= _speed * dt / Config.perspective;
 			if (_worldPos.y + size.y / 2 < Config.horizon) {
 				_worldPos.y = Config.horizon - size.y / 2;
 			}
 		}
-		if (_input.playerDown()) {
+		if (InputManager.playerdown.down()) {
 			_worldPos.y += _speed * dt / Config.perspective;
 			if (_worldPos.y + size.y / 2 > Luxe.screen.h) {
 				_worldPos.y = Luxe.screen.h - size.y / 2;
 			}
 		}
 		
-		if (_onGround() && Luxe.input.keypressed(Key.space)) {
+		if (_onGround() && InputManager.playerjump.pressed()) {
 			_zVelocity = 150;
 		}
 	}

@@ -5,41 +5,9 @@
 uniform sampler2D tex0;
 varying vec2 tcoord;
 varying vec4 color;
- 
-    /*
-        Take note that blurring in a single pass (the two for loops below) is more expensive than separating
-        the x and the y blur into different passes. This was used where bleeding edge performance
-        was not crucial and is to illustrate a point. 
- 
-        The reason two passes is cheaper? 
-           texture2D is a fairly high cost call, sampling a texture.
- 
-           So, in a single pass, like below, there are 3 steps, per x and y. 
- 
-           That means a total of 9 "taps", it touches the texture to sample 9 times.
- 
-           Now imagine we apply this to some geometry, that is equal to 16 pixels on screen (tiny)
-           (16 * 16) * 9 = 2304 samples taken, for width * height number of pixels, * 9 taps
-           Now, if you split them up, it becomes 3 for x, and 3 for y, a total of 6 taps
-           (16 * 16) * 6 = 1536 samples
-    
-           That's on a *tiny* sprite, let's scale that up to 128x128 sprite...
-           (128 * 128) * 9 = 147,456
-           (128 * 128) * 6 =  98,304
- 
-           That's 33.33..% cheaper for splitting them up.
-           That's with 3 steps, with higher steps (more taps per pass...)
- 
-           A really smooth, 6 steps, 6*6 = 36 taps for one pass, 12 taps for two pass
-           You will notice, the curve is not linear, at 12 steps it's 144 vs 24 taps
-           It becomes orders of magnitude slower to do single pass!
-           Therefore, you split them up into two passes, one for x, one for y.
-    */
- 
-    //I am hardcoding the constants like a jerk
     
 const float bluramount  = 1.0;
-const float center      = 1.1;
+const float center      = 1.5;
 const float stepSize    = 0.004;
 const float steps       = 3.0;
  
