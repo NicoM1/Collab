@@ -7,7 +7,7 @@ import luxe.Vector;
 
 class SteerBehaviour extends Component {
 	
-	var _position:Vector;
+	var _position: Vector;
 	var _steering: Vector;
 	var _target: Entity;
 	var _desiredVelocity: Vector;

@@ -15,8 +15,9 @@ class Character extends Sprite implements Boid {
 
 	/**
 	 * This vector stores the actual character position. pos is only used for graphical render.
+	 * CHANGED: removed underscore
 	**/
-	public var _worldPos(default, null): Vector;
+	public var worldPos(default, null): Vector;
 	
 	var _acceleration: Vector;
 	var _velocity: Vector;
@@ -26,7 +27,7 @@ class Character extends Sprite implements Boid {
 	var _zVelocity: Float = 0;
 	
 	public function new(options_: CharacterOptions) {
-		_worldPos = new Vector(0, 0);
+		worldPos = new Vector(0, 0);
 		_velocity = new Vector(0, 0);
 		_acceleration = new Vector(0, 0);
 		super(options_);
@@ -38,8 +39,8 @@ class Character extends Sprite implements Boid {
 		_velocity.x += _acceleration.x * dt;
 		_velocity.y += _acceleration.y * dt;
 		
-		_worldPos.x += _velocity.x * dt;
-		_worldPos.y += _velocity.y * dt;
+		worldPos.x += _velocity.x * dt;
+		worldPos.y += _velocity.y * dt;
 		
 		_zVelocity += _zAcceleration * dt;
 		_zHeight += _zVelocity * dt;
@@ -49,8 +50,8 @@ class Character extends Sprite implements Boid {
 			_zHeight = 0;
 		}
 		
-		pos.x = _worldPos.x;
-		pos.y = _worldPos.y;
+		pos.x = worldPos.x;
+		pos.y = worldPos.y;
 		pos.y -= _zHeight;
 	}
 	
@@ -65,7 +66,7 @@ class Character extends Sprite implements Boid {
     	return 60;
     }
     public function getPosition() :Vector {
-    	return _worldPos;
+    	return worldPos;
     }
     public function getMass() :Float {
     	return 5;

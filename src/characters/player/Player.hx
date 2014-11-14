@@ -33,15 +33,15 @@ class Player extends Character{
 		
 		super(options_);	
 		
-		_worldPos = new Vector(Luxe.screen.mid.x / Config.scale, Luxe.screen.mid.y / Config.scale);
+		worldPos = new Vector(Luxe.screen.mid.x / Config.scale, Luxe.screen.mid.y / Config.scale);
 		
 		var r = 13.0;
 		_shadow = Luxe.draw.circle({
 			color: new Color(0, 0, 0, 0.5),
 			rx: r,
 			ry: r/Config.perspective,
-			x: _worldPos.x,
-			y: _worldPos.y + 10,
+			x: worldPos.x,
+			y: worldPos.y + 10,
 			depth: 5
 		});
 		
@@ -55,8 +55,8 @@ class Player extends Character{
 	
 	override public function update(dt: Float) {
 		_updateMovement(dt);
-		_shadow.transform.pos.x = _worldPos.x;
-		_shadow.transform.pos.y = _worldPos.y + 10;
+		_shadow.transform.pos.x = worldPos.x;
+		_shadow.transform.pos.y = worldPos.y + 10;
 		_shadow.transform.scale.y = _shadow.transform.scale.x = 1 + _zHeight * _shaderExpansionPercent;
 
 		super.update(dt);
@@ -64,23 +64,23 @@ class Player extends Character{
 	
 	function _updateMovement(dt: Float) {
 		if (InputManager.playerleft.down()) {
-			_worldPos.x -= _speed * dt;
+			worldPos.x -= _speed * dt;
 			flipx = true;
 		}
 		if (InputManager.playerright.down()) {
-			_worldPos.x += _speed * dt;
+			worldPos.x += _speed * dt;
 			flipx = false;
 		}
 		if (InputManager.playerup.down()) {
-			_worldPos.y -= _speed * dt / Config.perspective;
-			if (_worldPos.y + size.y / 2 < Config.horizon) {
-				_worldPos.y = Config.horizon - size.y / 2;
+			worldPos.y -= _speed * dt / Config.perspective;
+			if (worldPos.y + size.y / 2 < Config.horizon) {
+				worldPos.y = Config.horizon - size.y / 2;
 			}
 		}
 		if (InputManager.playerdown.down()) {
-			_worldPos.y += _speed * dt / Config.perspective;
-			if (_worldPos.y + size.y / 2 > Luxe.screen.h) {
-				_worldPos.y = Luxe.screen.h - size.y / 2;
+			worldPos.y += _speed * dt / Config.perspective;
+			if (worldPos.y + size.y / 2 > Luxe.screen.h) {
+				worldPos.y = Luxe.screen.h - size.y / 2;
 			}
 		}
 		
