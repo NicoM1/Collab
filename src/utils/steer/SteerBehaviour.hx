@@ -37,7 +37,7 @@ class SteerBehaviour extends Component {
 		var temp2:Vector = new Vector(_target.pos.x,_target.pos.y);
 		var temp:Vector = new Vector(_position.x, _position.y);
 
-		_desiredVelocity =temp2.subtract(temp).normalize().multiplyScalar(_maxSpeed * dt);
+		_desiredVelocity = temp2.subtract(temp).normalize().multiplyScalar(_maxSpeed * dt);
 		_steering = _desiredVelocity.subtract(_velocity);
 		_steering = truncate(_steering, _maxForce * dt);
 		_steering = _steering.divideScalar(_mass);

@@ -104,7 +104,7 @@ class SteeringManager extends Component {
         displacement = displacement.multiplyScalar(CIRCLE_RADIUS);
 
         setAngle(displacement, wanderAngle);
-        wanderAngle += Math.random() * ANGLE_CHANGE - ANGLE_CHANGE * .5;
+        wanderAngle += (Math.random() * ANGLE_CHANGE) - (ANGLE_CHANGE * .5);
 
         wanderForce = circleCenter.add(displacement);
         return wanderForce;
@@ -169,10 +169,10 @@ class SteeringManager extends Component {
         velocity.copy_from(truncate(velocity, host.getMaxVelocity()));
 
             //position = position.add(velocity);
-        }
-
-        public function reset() {         
-            desired.x = desired.y = 0;
-            steering.x = steering.y = 0;
-        }
     }
+
+    public function reset() {         
+        desired.x = desired.y = 0;
+        steering.x = steering.y = 0;
+    }
+}

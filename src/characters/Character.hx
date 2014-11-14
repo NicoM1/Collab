@@ -59,16 +59,16 @@ class Character extends Sprite implements Boid {
 		return _zHeight == 0;
 	}
 
-	public function getVelocity() :Vector {
+	public function getVelocity(): Vector {
 		return _velocity;
 	}
-    public function getMaxVelocity() :Float {
+    public function getMaxVelocity(): Float {
     	return 60;
     }
-    public function getPosition() :Vector {
+    public function getPosition(): Vector {
     	return worldPos;
     }
-    public function getMass() :Float {
+    public function getMass(): Float {
     	return 5;
     }
 }

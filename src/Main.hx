@@ -107,13 +107,14 @@ class Main extends luxe.Game {
 
 	override function update(dt:Float) {
 		meh.getVelocity().set_xy(Luxe.mouse.x - meh.pos.x, Luxe.mouse.y - meh.pos.y);
-		meh.worldPos.copy_from(Luxe.mouse);	
-		//cast(_player.get("steering"), SteeringManager).seek(meh.pos);
-		//cast(_player.get("steering"), SteeringManager).flee(meh.pos); // TODO : borken?
-		cast(_player.get("steering"), SteeringManager).pursuit(meh);
-		//cast(_player.get("steering"), SteeringManager).wander(); // TODO : borken?
 
-		//TODO!: test
+		meh.worldPos.copy_from(Luxe.mouse);	
+
+		var steer: SteeringManager = cast _player.get("steering");
+		//steer.seek(meh.pos);
+		//steer.flee(meh.pos); // TODO : broken?
+		//steer.pursuit(meh);
+		steer.wander(); // TODO : broken?
 	}
 	
 	function _setUpCamera() {	
