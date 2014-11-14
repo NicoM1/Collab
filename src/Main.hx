@@ -111,10 +111,15 @@ class Main extends luxe.Game {
 		meh.worldPos.copy_from(Luxe.mouse);	
 
 		var steer: SteeringManager = cast _player.get("steering");
+
+		//NOTE: All below work now
 		//steer.seek(meh.pos);
-		//steer.flee(meh.pos); // TODO : broken?
+		//steer.flee(meh.pos);
+		steer.wander();
+
+		//TODO: TEST
+		//steer.evade(meh);
 		//steer.pursuit(meh);
-		steer.wander(); // TODO : broken?
 	}
 	
 	function _setUpCamera() {	

@@ -8,9 +8,9 @@ class SteeringManager extends Component {
 
     public static inline var MAX_FORCE: Float = 100;
 
-    // Wander
+    // Wander CHANGED: tweaked to look better, feel free to tweak more
     public static inline var CIRCLE_DISTANCE: Float = 3;
-    public static inline var CIRCLE_RADIUS: Float = 4;
+    public static inline var CIRCLE_RADIUS: Float = 0.5;
     public static inline var ANGLE_CHANGE: Float = 1;
 
     // Seek / flee
@@ -82,11 +82,13 @@ class SteeringManager extends Component {
         return force;
     }
 
+    //NOTE: Both these issues were simply do to forgetting that everything is by reference:D don't forget when using haxe;)
+    //CHANGED: FIXED
     private function doFlee(target: Vector): Vector {
         var force: Vector;
 
-        desired = host.getPosition().subtract(target);
-        desired = desired.normalize();
+        desired.copy_from(host.getPosition()).subtract(target);
+        desired.normalize();
         desired = desired.multiplyScalar(host.getMaxVelocity());
 
         force = desired.subtract(host.getVelocity());
@@ -94,10 +96,11 @@ class SteeringManager extends Component {
         return force;
     }
 
+    //CHANGED: FIXED
     private function doWander(): Vector {
-        var wanderForce: Vector, circleCenter:Vector, displacement:Vector;
+        var wanderForce: Vector, circleCenter:Vector = new Vector(), displacement:Vector;
 
-        circleCenter = host.getVelocity().normalize();
+        circleCenter.copy_from(host.getVelocity()).normalize();
         circleCenter = circleCenter.multiplyScalar(CIRCLE_DISTANCE);
 
         displacement = new Vector(0, -1);
@@ -110,6 +113,7 @@ class SteeringManager extends Component {
         return wanderForce;
     }
 
+    //NOTE: I'm not actually sure the following 2 are working, we need a real test with something that changes velocity, mouse does not work
     private function doEvade(target: Boid): Vector {
         distance = target.getPosition().subtract(host.getPosition());
 
