@@ -1,6 +1,7 @@
 package;
 
 import characters.player.Player;
+import characters.player.Tester;
 import characters.Character;
 import haxe.Json;
 import io.InputManager;
@@ -41,8 +42,8 @@ class Main extends luxe.Game {
 	var _finalShader: Shader;
 	
 	var _player: Player;
+	var _tester: Tester;
 	var _ground: Sprite;
-	var meh: Character;
 
 	override public function config(config:AppConfig):AppConfig {
 		config.window.resizable = false;
@@ -106,20 +107,14 @@ class Main extends luxe.Game {
 	}
 
 	override function update(dt:Float) {
-		meh.getVelocity().set_xy(Luxe.mouse.x - meh.pos.x, Luxe.mouse.y - meh.pos.y);
-
-		meh.worldPos.copy_from(Luxe.mouse);	
-
-		var steer: SteeringManager = cast _player.get("steering");
+		var steer: SteeringManager = cast _tester.get("steering");
 
 		//NOTE: All below work now
-		//steer.seek(meh.pos);
-		//steer.flee(meh.pos);
-		steer.wander();
-
-		//TODO: TEST
-		//steer.evade(meh);
-		//steer.pursuit(meh);
+		//steer.seek(_player.worldPos);
+		steer.pursuit(_player);
+		//steer.flee(_player.worldPos);
+		//steer.wander();
+		//steer.evade(_player);
 	}
 	
 	function _setUpCamera() {	
@@ -146,9 +141,9 @@ class Main extends luxe.Game {
 	}
 	
 	function _testPlayer() {
-		meh = new Character({pos: new Vector(400, 300)});
 		_player = new Player();
-		_player.add(new SteeringManager(_player));
+		_tester = new Tester();
+		_tester.add(new SteeringManager());
 	}
 
 	function _testGround() {

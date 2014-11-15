@@ -15,7 +15,6 @@ class Character extends Sprite implements Boid {
 
 	/**
 	 * This vector stores the actual character position. pos is only used for graphical render.
-	 * CHANGED: removed underscore
 	**/
 	public var worldPos(default, null): Vector;
 	
@@ -63,7 +62,7 @@ class Character extends Sprite implements Boid {
 		return _velocity;
 	}
     public function getMaxVelocity(): Float {
-    	return 60;
+    	return 170;
     }
     public function getPosition(): Vector {
     	return worldPos;

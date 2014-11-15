@@ -27,16 +27,16 @@ class SteeringManager extends Component {
     public var steering: Vector;      
     public var host: Boid;
 
-    public function new(host: Character) {
-        this.host           = cast( host, Boid);
+    public function new() {
         super({name:"steering"});
     }
 
     public override function init() {
-        this.desired        = new Vector(0, 0); 
-        this.steering       = new Vector(0, 0); 
-        this.wanderAngle    = 0; 
-        trace(entity);
+        desired        = new Vector(0, 0); 
+        steering       = new Vector(0, 0); 
+        wanderAngle    = 0; 
+        //NOTE: @eiyeron, casts can be implicit if the variable has an expilcit type
+        host = cast entity;
         host.getVelocity().copy_from(truncate(host.getVelocity(), host.getMaxVelocity()));
     }
 
@@ -70,12 +70,12 @@ class SteeringManager extends Component {
         distance = desired.length;
         desired = desired.normalize();
 
-        if (distance <= slowingRadius) {
+      /*  if (distance <= slowingRadius) {
             desired = desired.multiplyScalar(host.getMaxVelocity() * distance/slowingRadius);
         }
-        else {
+        else {*/
             desired = desired.multiplyScalar(host.getMaxVelocity());
-        }
+        //}
 
         force = desired.subtract(host.getVelocity());
 
@@ -83,7 +83,6 @@ class SteeringManager extends Component {
     }
 
     //NOTE: Both these issues were simply do to forgetting that everything is by reference:D don't forget when using haxe;)
-    //CHANGED: FIXED
     private function doFlee(target: Vector): Vector {
         var force: Vector;
 
@@ -96,7 +95,6 @@ class SteeringManager extends Component {
         return force;
     }
 
-    //CHANGED: FIXED
     private function doWander(): Vector {
         var wanderForce: Vector, circleCenter:Vector = new Vector(), displacement:Vector;
 
@@ -113,9 +111,8 @@ class SteeringManager extends Component {
         return wanderForce;
     }
 
-    //NOTE: I'm not actually sure the following 2 are working, we need a real test with something that changes velocity, mouse does not work
     private function doEvade(target: Boid): Vector {
-        distance = target.getPosition().subtract(host.getPosition());
+        distance = target.getPosition().clone().subtract(host.getPosition());
 
         var updatesNeeded: Float = distance.length / host.getMaxVelocity();
 

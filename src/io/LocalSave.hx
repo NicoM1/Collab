@@ -55,7 +55,6 @@
  		}
 	}
 	 
-	//CHANGED: private to force singleton
  	function new() {
  		#if web
  		_browserStorage = Browser.getLocalStorage();
