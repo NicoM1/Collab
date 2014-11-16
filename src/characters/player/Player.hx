@@ -63,20 +63,28 @@ class Player extends Character{
 	}
 	
 	function _updateMovement(dt: Float) {
+		var moved = false;
+
 		if (InputManager.playerleft.down()) {
-			worldPos.x -= _speed * dt;
+			_velocity.x = -_speed;
 			flipx = true;
+			moved = true;
 		}
 		if (InputManager.playerright.down()) {
-			worldPos.x += _speed * dt;
+			_velocity.x = _speed;
 			flipx = false;
+			moved = true;
 		}
 		if (InputManager.playerup.down()) {
-			worldPos.y -= _speed * dt / Config.perspective;
+			_velocity.y = -_speed / Config.perspective;
+			moved = true;
 		}
 		if (InputManager.playerdown.down()) {
-			worldPos.y += _speed * dt / Config.perspective;
+			_velocity.y = _speed / Config.perspective;
+			moved = true;
 		}
+
+		if(!moved) {_velocity.set_xy(0,0);}
 		
 		if (_onGround() && InputManager.playerjump.pressed()) {
 			_zVelocity = 150;

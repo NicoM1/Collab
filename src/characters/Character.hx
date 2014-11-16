@@ -52,6 +52,7 @@ class Character extends Sprite implements Boid {
 		pos.x = worldPos.x;
 		pos.y = worldPos.y;
 		pos.y -= _zHeight;
+			
 
 		if (worldPos.y + size.y / 2 < Config.horizon) {
 			worldPos.y = Config.horizon - size.y / 2;

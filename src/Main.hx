@@ -111,15 +111,15 @@ class Main extends luxe.Game {
 	override function update(dt:Float) {
 		if(Luxe.input.keypressed(Keycodes.space)) started = true;
 		if(!started) return;
-		
+
 		for(i in 0..._testers.length) {
 			var steer: SteeringManager = cast _testers[i].get("steering");
 
 			switch(i) {
 				case 0:
-					steer.seek(_player.pos);
+					steer.seek(_player.worldPos);
 				case 1:
-					steer.flee(_player.pos);
+					steer.flee(_player.worldPos);
 				case 2:
 					steer.pursuit(_player);
 				case 3:
