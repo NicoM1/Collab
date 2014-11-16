@@ -52,6 +52,13 @@ class Character extends Sprite implements Boid {
 		pos.x = worldPos.x;
 		pos.y = worldPos.y;
 		pos.y -= _zHeight;
+
+		if (worldPos.y + size.y / 2 < Config.horizon) {
+			worldPos.y = Config.horizon - size.y / 2;
+		}
+		else if (worldPos.y + size.y / 2 > Luxe.screen.h) {
+			worldPos.y = Luxe.screen.h - size.y / 2;
+		}
 	}
 	
 	function _onGround(): Bool {
@@ -62,7 +69,7 @@ class Character extends Sprite implements Boid {
 		return _velocity;
 	}
     public function getMaxVelocity(): Float {
-    	return 170;
+    	return 60;
     }
     public function getPosition(): Vector {
     	return worldPos;

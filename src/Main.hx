@@ -42,8 +42,10 @@ class Main extends luxe.Game {
 	var _finalShader: Shader;
 	
 	var _player: Player;
-	var _tester: Tester;
+	var _testers: Array<Tester> = new Array<Tester>();
 	var _ground: Sprite;
+
+	var started: Bool = false;
 
 	override public function config(config:AppConfig):AppConfig {
 		config.window.resizable = false;
@@ -107,14 +109,31 @@ class Main extends luxe.Game {
 	}
 
 	override function update(dt:Float) {
-		var steer: SteeringManager = cast _tester.get("steering");
+		if(Luxe.input.keypressed(Keycodes.space)) started = true;
+		if(!started) return;
+		
+		for(i in 0..._testers.length) {
+			var steer: SteeringManager = cast _testers[i].get("steering");
 
-		//NOTE: All below work now
-		//steer.seek(_player.worldPos);
-		steer.pursuit(_player);
-		//steer.flee(_player.worldPos);
-		//steer.wander();
-		//steer.evade(_player);
+			switch(i) {
+				case 0:
+					steer.seek(_player.pos);
+				case 1:
+					steer.flee(_player.pos);
+				case 2:
+					steer.pursuit(_player);
+				case 3:
+					steer.evade(_player);
+				default:
+					steer.wander();
+			}
+			//NOTE: All below work now
+			//steer.seek(_player.worldPos);
+			//steer.pursuit(_player);
+			//steer.flee(_player.worldPos);
+			//steer.wander();
+			//steer.evade(_player);
+		}
 	}
 	
 	function _setUpCamera() {	
@@ -142,8 +161,12 @@ class Main extends luxe.Game {
 	
 	function _testPlayer() {
 		_player = new Player();
-		_tester = new Tester();
-		_tester.add(new SteeringManager());
+
+		for(i in 0...10) {
+			var _tester = new Tester();
+			_tester.add(new SteeringManager());
+			_testers.push(_tester);
+		}
 	}
 
 	function _testGround() {

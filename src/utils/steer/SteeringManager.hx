@@ -112,7 +112,8 @@ class SteeringManager extends Component {
     }
 
     private function doEvade(target: Boid): Vector {
-        distance = target.getPosition().clone().subtract(host.getPosition());
+        distance.copy_from(target.getPosition());
+        distance.subtract(host.getPosition());
 
         var updatesNeeded: Float = distance.length / host.getMaxVelocity();
 

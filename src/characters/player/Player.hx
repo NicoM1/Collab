@@ -73,15 +73,9 @@ class Player extends Character{
 		}
 		if (InputManager.playerup.down()) {
 			worldPos.y -= _speed * dt / Config.perspective;
-			if (worldPos.y + size.y / 2 < Config.horizon) {
-				worldPos.y = Config.horizon - size.y / 2;
-			}
 		}
 		if (InputManager.playerdown.down()) {
 			worldPos.y += _speed * dt / Config.perspective;
-			if (worldPos.y + size.y / 2 > Luxe.screen.h) {
-				worldPos.y = Luxe.screen.h - size.y / 2;
-			}
 		}
 		
 		if (_onGround() && InputManager.playerjump.pressed()) {
