@@ -1,5 +1,17 @@
 ##[Game Design Document]
 
+(This is getting messy. We should adopt a structed document base or switch to the wiki.)
+
+### Setting (@Eiyeron's ideas)
+I have some ideas about setting it into a steapunk universe. Not so original but it has an advantage : we can set there the gun mania without getting plot holes.
+
+The world had an technology boom with the industrial revolution. New transportations are made of the steel made from the iron and the other resources coming straight from under our feet and
+
+Scientists around the world keep getting hired by ever-growing companies. THe success of the first or the fastest to hire and get the new technological discoveries get too envied to keep this steam and race peacefully. Now entrepreneurs hire men from the shadows to steal the scientific works or just to sink their rivals. You're one of the mercenary from the shadows.
+
+And yes, it's pretty much TF2 with some tweaks. I'm writing theses idea as they come and I surely played too much Steam games... ><
+
+
 #### SHMUP
 - Borderlands style weapons
   - (@Eiyeron) Borderlands tracks the weapons as a combinaison of differents parts as the canon, the handle, etc...
