@@ -164,6 +164,7 @@ class Main extends luxe.Game {
 
 		for(i in 0...10) {
 			var _tester = new Tester();
+			_tester.color.r = i <= 3 ? 1 : 0;
 			_tester.add(new SteeringManager());
 			_testers.push(_tester);
 		}
