@@ -16,3 +16,8 @@ And yes, it's pretty much TF2 with some tweaks. I'm writing theses idea as they 
   - (@Eiyeron) If it's a space shmup (hello, originality), Proc gen could be used to design planets as KSP (Kerbal Space Program) does or a lot of procgen games (like roguelikes)
   - (@Eiyeron) The main advantage with using pseudo-random functionbs like Simplex is the lossless details. Just add on the fly more octaves / calculation passses and you'll have as much details as you want.
   - (@Eiyeron) I should have some old prototypes here and there. I could bring them up for dissection.
+-(@NicoM1 ideas)
+  - weapon aim goes left/right/up/down but not back/front (y axis)
+  - levels scroll to the right, sometimes with gate blocking the path until actions are completed
+  - small enemies swarm like a shmup but with a smaller amount
+  - large bosses occur at specific times
