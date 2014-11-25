@@ -3,12 +3,12 @@ package utils.steer;
 import characters.Character;
 import luxe.Component;
 import luxe.Vector;
+import luxe.utils.Maths;
 
 class SteeringManager extends Component {
 
     public static inline var MAX_FORCE: Float = 100;
 
-    // Wander CHANGED: tweaked to look better, feel free to tweak more
     public static inline var CIRCLE_DISTANCE: Float = 3;
     public static inline var CIRCLE_RADIUS: Float = 0.5;
     public static inline var ANGLE_CHANGE: Float = 1;
@@ -34,8 +34,7 @@ class SteeringManager extends Component {
     public override function init() {
         desired        = new Vector(0, 0); 
         steering       = new Vector(0, 0); 
-        wanderAngle    = 0; 
-        //NOTE: @eiyeron, casts can be implicit if the variable has an expilcit type
+        wanderAngle    = Math.random() * 3.14 * 2; //CHANGED: this was why they all went right:)
         host = cast entity;
         host.getVelocity().copy_from(truncate(host.getVelocity(), host.getMaxVelocity()));
     }
@@ -74,7 +73,7 @@ class SteeringManager extends Component {
             desired = desired.multiplyScalar(host.getMaxVelocity() * distance/slowingRadius);
         }
         else {*/
-            desired = desired.multiplyScalar(host.getMaxVelocity());
+        desired = desired.multiplyScalar(host.getMaxVelocity());
         //}
 
         force = desired.subtract(host.getVelocity());
@@ -82,7 +81,6 @@ class SteeringManager extends Component {
         return force;
     }
 
-    //NOTE: Both these issues were simply do to forgetting that everything is by reference:D don't forget when using haxe;)
     private function doFlee(target: Vector): Vector {
         var force: Vector;
 
@@ -169,8 +167,6 @@ class SteeringManager extends Component {
 
         velocity.copy_from(velocity.add(steering));
         velocity.copy_from(truncate(velocity, host.getMaxVelocity()));
-
-            //position = position.add(velocity);
     }
 
     public function reset() {         
